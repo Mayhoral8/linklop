@@ -6,7 +6,7 @@ import { auth, fetchUrl } from "./firebase-config"
 import { useNavigate } from "react-router";
 import { createUserWithEmailAndPassword, onAuthStateChanged, signOut, signInWithEmailAndPassword } from "firebase/auth";
 import { storage } from "./firebase-config";
-// import emailjs from '@emailjs/browser';
+import emailjs from '@emailjs/browser';
 import Aos from "aos";
 import "aos/dist/aos.css";
 
@@ -59,16 +59,11 @@ const navigate = useNavigate();
       }, []);
 
 // EMAIL FUNCTION
-    // const sendEmail = (e) => {
-    //   e.preventDefault();
-  
-    //   emailjs.sendForm('service_1kf8q4r', 'template_7haozug', form.current, 'HoDMgnKrRm2WdK2E_')
-    //     .then((result) => {
-    //         console.log(result.text);
-    //     }, (error) => {
-    //         console.log(error.text);
-    //     });
-    // };
+
+    const sendEmail = (e) => {
+      e.preventDefault();
+    
+    };
   
 
 
@@ -88,13 +83,6 @@ const navigate = useNavigate();
 
 
 let userInFinal = [];
-onAuthStateChanged(auth, (currentUser)=>{
-  if(currentUser){
-  }
-})
-
-
-
 
     const registerUser =  (e)=>{
       e.preventDefault()
@@ -110,13 +98,30 @@ onAuthStateChanged(auth, (currentUser)=>{
       }).then(()=>{
         setIsLoading(false)
         navigate('/login')
+        console.log('registered')
+      }).then(()=>{
+        emailjs.sendForm('service_1kf8q4r', 'template_7haozug', form.current, 'HoDMgnKrRm2WdK2E_')
+        .then((result) => {
+            console.log(result.text);
+            alert('mail sent')
+        }, (error) => {
+            console.log(error.text);
+        });
       }).catch(error =>{
         if(error){
-          const errorString1 = error.message.split(' ').slice(2, 4).join('').split('/').slice(1, 2).join('').split('-').join(' ');
-        const errorString2 = errorString1.slice(0, errorString1.length-2);
-        setErrorMsg(errorString2)
+          setIsLoading(false);
+          const errorString1 = error.message.split(' ').splice(1, error.message.length)
+          errorString1.pop()
+         
+        let words = []
+        errorString1.map(word=>{
+          console.log(word);
+          words.push(word)
+        })
+        console.log(words.join(' '))
+        setErrorMsg(words.join(' '))
+        console.log(error.message)
         } 
-        setIsLoading(false)
       })
         
       }
@@ -186,6 +191,7 @@ onAuthStateChanged(auth, (currentUser)=>{
       }).catch(error=>{
         if(error){
           setIsLoading(false);
+          console.log(error.message)
           const errorString1 = error.message.split(' ').slice(2, 4).join('').split('/').slice(1, 2).join('').split('-').join(' ');
           const errorString2 = errorString1.slice(0, errorString1.length-2).split(' ').map(word=>{
             const word1 = word.replace(word[0], word[0].toUpperCase())
@@ -290,6 +296,7 @@ onAuthStateChanged(auth, (currentUser)=>{
                     setRegPhoneNumber,
                     form,
                     navigate,
+                    sendEmail
                     // loadData
                     
             }}>

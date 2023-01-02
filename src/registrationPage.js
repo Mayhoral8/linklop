@@ -57,18 +57,18 @@ return (
           }
 
         
-          console.log(loadData.fullName)
+          // console.log(loadData.fullName)
           
           return (
             <>
             <div className="mx-auto block">
              <h2 className="ml-10 box mx-auto block text-center">
-                Welcome Back, {loadData.displayName}
+                Welcome Back, {initialToken}
               </h2>
-              <h3 className="text-center">{loadData.regStatus? 'Registered' : 'Not Registered'}</h3>
+              {/* <h3 className="text-center">{loadData.regStatus? 'Registered' : 'Not Registered'}</h3> */}
             </div>
               
-              <div className="w-1/2 mt-10 mx-auto block">
+              {/* <div className="w-1/2 mt-10 mx-auto block">
                 <form className="grid gap-y-6 px-2 text-sm">
                    <div>
                     <label>Full Name (As in official documents)</label>
@@ -241,7 +241,7 @@ return (
                   />
                   <button type="submit" className="border w-20 block mx-auto" onClick={(e)=> upload(e)}>SUBMIT</button>
                 </form>
-              </div>
+              </div> */}
             </>
           );
           

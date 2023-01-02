@@ -1,30 +1,40 @@
 import React from "react";
 // import { Link } from 'react-router-dom'
 import UNIZIK from "./img/UNIZIK2.png";
-import Payment from "./img/Payment.png";
+// import Payment from "./img/Payment.png";
+import Payment1 from "./img/Payment1.jpg";
+import Register1 from "./img/Register1.jpg";
+import { Link } from "react-router-dom";
+
 const Home = () => {
   return (
     <>
-      <section className="lg:flex lg:flex-row-reverse ">
+      <section className="lg:flex lg:flex-row-reverse mt-8 ">
         <div
-          className="lg:mt-10 mx-52"
+          className="lg:mt-10 lg:mx-52 mx-auto w-60 h-78"
           data-aos="fade-left"
           data-aos-easing="ease-out"
           data-aos-duration="1200"
         >
-          <img src={UNIZIK} alt="" className="w-60 h-78" />
+          <img src={UNIZIK} alt="" className="" />
         </div>
 
-        <div className="lg:mt-20 mx-20">
+        <div className="lg:mt-24  lg:ml-36 flex flex-col mx-auto">
           <h3
-            className="text-3xl font-bold"
+            className="text-5xl font-bold text-gray-800 text-center lg:text-left"
             data-aos="fade-right"
             data-aos-easing="ease-out"
             data-aos-duration="1200"
           >
-            GET YOUR TRANSCRIPT FROM UNIZIK IN
+            GET YOUR TRANSCRIPT
+            <br /> FROM UNIZIK IN
             <br /> 7-14 DAYS
           </h3>
+          <Link to='/login'>
+          <button className="block bg-orange-500 text-white w-44 mt-8 rounded-lg h-10 mx-auto lg:mx-0">
+            Create A Free Account
+          </button>
+          </Link>
         </div>
       </section>
 
@@ -36,30 +46,48 @@ const Home = () => {
         <article className="lg:flex lg:flex-row-reverse justify-around  grid">
           
             <div>
-              <img src={Payment} alt="" className="w-60 h-78" />
+              <img src={Register1} alt="" className="w-76 h-96"
+                data-aos="fade-left"
+                data-aos-easing="ease-out"
+                data-aos-duration="1000" />
             </div>
             <div>
-            <h2 className="my-32 text-center block">REGSITER</h2>
+            <h2 className="my-32 text-center block"
+            data-aos="fade-right"
+            data-aos-easing="ease-out"
+            data-aos-duration="1000" >REGISTER</h2>
             </div>
           
         </article>
         <article className="lg:flex  justify-around grid">
           
             <div>
-              <img src={Payment} alt="" className="w-60 h-78" />
+              <img src={Payment1} alt="" className="w-60 h-78" 
+              data-aos="fade-left"
+              data-aos-easing="ease-out"
+              data-aos-duration="1000" />
             </div>
             <div>
-            <h2 className="my-32 text-center block">UPLOAD DETAILS</h2>
+            <h2 className="my-32 text-center block"
+            data-aos="fade-right"
+            data-aos-easing="ease-out"
+            data-aos-duration="1000" >UPLOAD DETAILS</h2>
             </div>
           
         </article>
         <article className="lg:flex lg:flex-row-reverse justify-around grid">
           
             <div>
-              <img src={Payment} alt="" className="w-60 h-78" />
+              <img src={Payment1} alt="" className="w-60 h-78" 
+              data-aos="fade-left"
+              data-aos-easing="ease-out"
+              data-aos-duration="1000" />
             </div>
             <div>
-            <h2 className="my-32 text-center block">PAYMENT</h2>
+            <h2 className="my-32 text-center block"
+            data-aos="fade-right"
+            data-aos-easing="ease-out"
+            data-aos-duration="1000" >PAYMENT</h2>
             </div>
           
         </article>

@@ -6,6 +6,7 @@ import Register from "./register";
 import Navbar from "./navbar";
 import Home from "./home";
 import RegistrationPage from "./registrationPage";
+import FlutterWave from './flutterwave';
 
  const App = ()=> {
   return( 
@@ -17,6 +18,7 @@ import RegistrationPage from "./registrationPage";
       <Route path ='/login' element = {<Login/>} />
       <Route path ='/registration' element = {<RegistrationPage/>} />
       <Route path ='/signUp' element = {<Register/>} />
+      <Route path ='/payment' element = {<FlutterWave/>} />
      </Routes>
       
   </>

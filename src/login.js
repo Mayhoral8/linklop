@@ -1,6 +1,6 @@
 import { React, useRef, useState } from "react";
 import { ConsumerContext } from "./context";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 const Login = () => {
   const [state1, setState1] = useState(false);
@@ -44,30 +44,36 @@ const Login = () => {
               {isLoading ?  (<button type="button" className="mx-auto block" disabled>
          <i className="fas fa-spinner animate-spin"/>
         </button>): null }
-                <div className="mx-auto w-96 mt-10 px-5 py-5 grid grid-cols-2 h-60 bg-orange-500">
-                  <div className="grid grid-cols-1 mt-1 gap-y-5 text-white">
-                    <span>Email: </span> <span>Password: </span>{" "}
-                  </div>
+                <div className=" mx-auto w-72 mt-10 grid grid-cols-2 h-60 ">
                   <div className="grid grid-cols-1 text-sm">
+                    
                     <input
-                      // ref={emailInputRef}
-                      className="border-2 h-10 rounded-md px-1"
+                      className="focus:outline-none border-b-2 mx-auto h-10 text-gray-700 w-72"
                       type="email"
-                      placeholder="Email..."
+                      placeholder="Email"
                       onChange={(e) => setEmail(e.target.value)}
                     />
+                     
                     <input
-                      // ref={passwordInputRef}
-                      className="border-2 h-10 rounded-md px-1"
+                      className="focus:outline-none box border-b-2 h-10 w-72 text-gray-700"
                       type="password"
-                      placeholder="Password..."
+                      placeholder="Password"
                       onChange ={(e)=> {setPassword(e.target.value); setErrorMsg('')}}
-                    />
+                      />
+                      
                   </div>
                 </div>
-                <div className="mx-auto flex flex-row justify-between px-4 w-96 border-2 border-red-200">
-                  <button className="box mt-2 box mx-auto" onClick={()=> login()}>Login</button>
-                </div>
+                
+                  <button className="px-auto flex items-center mx-auto px-32 w-72 bg-orange-500 rounded-md h-8 my-auto text-white" onClick={()=> login()}>Login</button>
+                
+              </div>
+              <div className="mt-5 text-center block w-48 mx-auto">
+              <h6 className="">Don't have an account?</h6> 
+              <Link to ='/signup'>
+                <p className="text-orange-500 w-20 block mx-auto text-center">
+                  Sign Up
+                </p>
+              </Link>
               </div>
              
             </>
