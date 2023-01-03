@@ -19,7 +19,7 @@ const Navbar = () => {
               <div className="">
 
               <Link to="/">
-                <h3 className="ml-2 mt-2 box text-white" onClick={() => 
+                <h3 className="ml-2 mt-2 box" onClick={() => 
                   
                   
                     setShow((presShow)=>{
