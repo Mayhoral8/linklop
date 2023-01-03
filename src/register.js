@@ -20,7 +20,6 @@ const Register = () => {
                 <h4 className="text-center text-red-500 font-bold h-6">{errorMsg}</h4>
 
                 <span className="h-8 text-center mx-auto">
-                  g
                   {isLoading ?  (<button type="button" className="mx-auto block" disabled>
          <i className="fas fa-spinner animate-spin"/>
         </button>): null }
