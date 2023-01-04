@@ -1,6 +1,7 @@
 import { React, useRef, useState } from "react";
 import { ConsumerContext } from "./context";
 import { Link, Navigate } from "react-router-dom";
+import Footer from "./footer";
 
 const Login = () => {
   const [state1, setState1] = useState(false);
@@ -44,8 +45,8 @@ const Login = () => {
               {isLoading ?  (<button type="button" className="mx-auto block" disabled>
          <i className="fas fa-spinner animate-spin"/>
         </button>): null }
-                <div className=" mx-auto w-72 mt-10 grid grid-cols-2 h-60 ">
-                  <div className="grid grid-cols-1 text-sm">
+                <div className=" mx-auto w-72 mt-10 h-44 ">
+                  <div className="grid grid-rows-2  gap-y-10 text-sm">
                     
                     <input
                       className="focus:outline-none border-b-2 mx-auto h-10 text-gray-700 w-72"
@@ -55,7 +56,7 @@ const Login = () => {
                     />
                      
                     <input
-                      className="focus:outline-none box border-b-2 h-10 w-72 text-gray-700"
+                      className="focus:outline-none box border-b-2 h-8 w-72 text-gray-700"
                       type="password"
                       placeholder="Password"
                       onChange ={(e)=> {setPassword(e.target.value); setErrorMsg('')}}
@@ -67,7 +68,7 @@ const Login = () => {
                   <button className="px-auto flex items-center mx-auto px-32 w-72 bg-orange-500 rounded-md h-8 my-auto text-white" onClick={()=> login()}>Login</button>
                 
               </div>
-              <div className="mt-5 text-center block w-48 mx-auto">
+              <div className="mt-5 text-center block w-48 mx-auto pb-10">
               <h6 className="">Don't have an account?</h6> 
               <Link to ='/signup'>
                 <p className="text-orange-500 w-20 block mx-auto text-center">
@@ -75,6 +76,10 @@ const Login = () => {
                 </p>
               </Link>
               </div>
+              <div>
+       
+    </div>
+    <Footer/>
              
             </>
           );
