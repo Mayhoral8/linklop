@@ -28,7 +28,7 @@ const Register = () => {
 
           return (
             <>
-              <div className="lg:mt-10">
+              <div className="lg:mt-10 h-screen">
                 <h1 className="text-center text-2xl">Sign Up</h1>
                 <h4 className="text-center text-red-500 font-bold h-6">
                   {errorMsg}
@@ -102,7 +102,6 @@ const Register = () => {
                     </div>
                   </form>
                 </div>
-              </div>
               <div className="mt-3 text-center block w-48 mx-auto pb-10">
                 <h6 className="">Already have an account?</h6>
                 <Link to="/login">
@@ -110,6 +109,7 @@ const Register = () => {
                     Login
                   </p>
                 </Link>
+              </div>
               </div>
               
               

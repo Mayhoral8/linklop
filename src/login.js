@@ -39,7 +39,7 @@ const Login = () => {
         // }
           return (
             <>
-              <div className="mt-20">
+              <div className="mt-20 h-screen">
             <h1 className="text-center text-xl">Welcome Back <br/> Sign In</h1>
               <h2 className="text-center text-red-500 font-bold">{errorMsg}</h2>
               {isLoading ?  (<button type="button" className="mx-auto block" disabled>
@@ -67,7 +67,6 @@ const Login = () => {
                 
                   <button className="px-auto flex items-center mx-auto px-32 w-72 bg-orange-500 rounded-md h-8 my-auto text-white" onClick={()=> login()}>Login</button>
                 
-              </div>
               <div className="mt-5 text-center block w-48 mx-auto pb-10">
               <h6 className="">Don't have an account?</h6> 
               <Link to ='/signup'>
@@ -77,6 +76,7 @@ const Login = () => {
               </Link>
               </div>
               <div>
+              </div>
        
     </div>
     <Footer/>

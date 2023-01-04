@@ -14,6 +14,7 @@ import {
 import { storage } from "./firebase-config";
 import FlutterWave from "./flutterwave";
 import { useFlutterwave } from "flutterwave-react-v3";
+import Footer from "./footer";
 
 const Main = () => {
   const navigate = useNavigate();
@@ -44,19 +45,11 @@ const Main = () => {
           console.log(initialToken);
           return (
             <>
+            <div className="h-screen">
+
               <h3 className="mt-2 pl-2 ">Hi {initialToken}</h3>
-              <div>
-                <div className="bg-orange-500 h-16 my-auto text-white h-20 fixed left-0 bottom-0 right-0 pb-14 mt-auto">
-                  <ul className="flex flex-row justify-center">
-                    <li>
-                      <a href="">Contact Us</a>
-                    </li>
-                    <li>
-                      <a href="">Contact Us</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+            </div>
+            <Footer/>
             </>
           );
         }}
