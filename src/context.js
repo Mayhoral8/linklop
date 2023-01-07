@@ -254,6 +254,11 @@ const ContextProvider = (props) => {
       regData,
     });
   };
+  const topScroll = ()=>{
+    window.scrollTo({
+      top:0, left:0 , behavior: "smooth"
+    });
+  }
 
   return (
     <ContextCreate.Provider
@@ -303,7 +308,7 @@ const ContextProvider = (props) => {
         form,
         navigate,
         sendEmail,
-        // loadData
+        topScroll
       }}
     >
       {props.children}
