@@ -2,6 +2,7 @@ import { React, useRef } from "react";
 import { ConsumerContext } from "./context";
 import { Navigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import TranscertLogo from './img/TranscertLogo.png'
 import Footer from "./footer";
 const Register = () => {
   const namRef = useRef();
@@ -28,8 +29,12 @@ const Register = () => {
 
           return (
             <>
-              <div className="lg:mt-10 h-screen">
-                <h1 className="text-center text-2xl">Sign Up</h1>
+             <div className="mt-20">
+
+<img src={TranscertLogo} alt="" className="w-40 mt-5 mx-auto"/>
+</div>
+              <div className="mt-12 h-screen">
+                <h1 className="text-center text-md">Sign Up</h1>
                 <h4 className="text-center text-red-500 font-bold h-6">
                   {errorMsg}
                 </h4>
@@ -43,7 +48,7 @@ const Register = () => {
                 </span>
                 <div className="">
                   <form ref={form} onSubmit={sendEmail}>
-                    <div className=" mx-auto w-72 mt-6 grid grid-cols-2 h-60 ">
+                    <div className=" mx-auto w-72 mt-6 grid grid-cols-2 h-52 ">
                       <div className="grid grid-cols-1 text-sm text-gray-900">
                         <input
                           className="focus:outline-none border-b mx-auto h-10 text-gray-900 w-72 border-gray-300"
@@ -90,7 +95,7 @@ const Register = () => {
                       </div>
                     </div>
 
-                    <div className=" mx-auto flex flex-row justify-between w-72 bg-orange-500 rounded-md h-8 my-auto text-white">
+                    <div className=" mx-auto flex flex-row justify-between w-72 bg-orange-base rounded-lg h-8 mt-8 text-white">
                       <button
                         className="box my-auto  mx-auto"
                         onClick={(e) => {
@@ -102,10 +107,10 @@ const Register = () => {
                     </div>
                   </form>
                 </div>
-              <div className="mt-3 text-center block w-48 mx-auto pb-10">
+              <div className=" text-center block text-sm w-48 mt-8 mx-auto pb-5">
                 <h6 className="">Already have an account?</h6>
                 <Link to="/login">
-                  <p className="text-orange-500 w-20 block mx-auto text-center">
+                  <p className="text-orange-base text-sm w-20 block mx-auto text-center">
                     Login
                   </p>
                 </Link>
