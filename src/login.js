@@ -30,9 +30,9 @@ const Login = () => {
             setPassword(passwordInputRef.current.value);
             console.log(email);
           };
-        if(initialToken){
-          return <Navigate to = '/main'/>
-        }
+        // if(initialToken){
+        //   return <Navigate to = '/main'/>
+        // }
         // if(isLoading === true){
         //   return (<button type="button" class="bg-indigo-500 ..." disabled>
         //   Loading...

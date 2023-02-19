@@ -8,20 +8,37 @@ import Home from "./home";
 import RegistrationPage from "./registrationPage";
 import FlutterWave from "./flutterwave";
 import Footer from "./footer";
-
+import { ConsumerContext } from "./context";
 const App = () => {
   return (
     <>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/main" element={<Main />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/registration" element={<RegistrationPage />} />
-        <Route path="/signUp" element={<Register />} />
-        <Route path="/payment" element={<FlutterWave />} />
-      </Routes>
-      {/* <Footer/> */}
+      <ConsumerContext>
+        {(value) => {
+          const {
+            logout,
+            currUser,
+            show,
+            setShow,
+            setCurrUser,
+            initialToken,
+            topScroll,
+          } = value;
+          return (
+            <>
+              <Navbar />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/main" element={<Main />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/registration" element={<RegistrationPage />}  />
+                <Route path='/home' element = {<Home/>}/>
+                <Route path="/signUp" element={<Register />} />
+                <Route path="/payment" element={<FlutterWave />} />
+              </Routes>
+            </>
+          );
+        }}
+      </ConsumerContext>
     </>
   );
 };

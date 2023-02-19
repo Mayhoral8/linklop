@@ -18,12 +18,12 @@ const Home = () => {
   return (
     <ConsumerContext>
       {(value) => {
-        const { topScroll } = value;
+        const { topScroll, homeSignUpBtn } = value;
         return (
           <>
-            <section className="lg:flex lg:flex-row-reverse py-8 w-96 lg:w-full bg-blue-base text-gray mx-auto">
+            <section className="lg:flex lg:flex-row-reverse py-8 w-full lg:w-full lg:h-96 bg-blue-base text-gray mx-auto">
               <div
-                className="lg:mt-6 mt-16 lg:mx-40 mx-auto  lg:w-72 lg:h-86 w-44 h-56 ml-20 "
+                className="lg:mt-6 mt-16 lg:mx-52 mx-auto  lg:w-72 lg:h-86 w-44 h-56"
                 data-aos="fade-left"
                 data-aos-easing="ease-out"
                 data-aos-duration="1200"
@@ -32,38 +32,38 @@ const Home = () => {
               </div>
 
               <div
-                className="lg:mt-4 mr-8  lg:ml-36 flex flex-col"
+                className="lg:mt-4   lg:ml-36 flex flex-col"
                 data-aos="fade-right"
                 data-aos-easing="ease-out"
                 data-aos-duration="1200"
               >
-                <h3 className="font-Opensans lg:text-5xl text-center text-4xl font-bold text-white mt-4  lg:text-left">
+                <h3 className="font-Opensans lg:text-5xl text-center text-4xl font-bold text-white mt-12  lg:text-left">
                   GET YOUR TRANSCRIPT
                   <br /> FROM UNIZIK IN
                   <br /> 7-14 DAYS
                 </h3>
-                <Link to="/signUp">
+                
                   <button
                     className="block bg-orange-base text-white w-44 mt-8 rounded-lg h-10 mx-auto lg:mx-0"
-                    onClick={() => topScroll()}
+                    onClick={() => {topScroll(); homeSignUpBtn()}}
                   >
                     Create A Free Account
                   </button>
-                </Link>
+                
               </div>
             </section>
 
             <section className="mt-10">
               <h2 className="text-center">GET STARTED IN 3 EASY STEPS</h2>
 
-              <article className="lg:flex lg:flex-row-reverse justify-around">
+              <article className="lg:flex lg:flex-row-reverse mx-auto justify-around">
                 <div
                   className="mx-auto"
                   data-aos="fade-left"
                   data-aos-easing="ease-out"
                   data-aos-duration="1200"
                 >
-                  <img src={Register1} alt="" className="w-72 h-86" />
+                  <img src={Register1} alt="" className="w-72 h-86 mx-auto" />
                 </div>
                 <div
                   className="text-center  lg:mt-10 max-w-xs mx-auto"
@@ -78,7 +78,7 @@ const Home = () => {
                   </p>
                 </div>
               </article>
-              <article className="lg:flex lg:flex-row-reverse justify-around grid mx-auto mt-10 lg:mt-0">
+              <article className="lg:flex-row-reverse flex-col-reverse  justify-around flex mx-auto mt-10 lg:mt-0">
                 <div
                   className="text-center max-w-xs lg:mt-14 mx-auto"
                   data-aos="fade-right"
@@ -90,7 +90,7 @@ const Home = () => {
                   </h2>
                   <p className="mt-2 text-center">
                     Next, Supply Details and Official Documents From UNIZIK To
-                    Process Your Trasncript and Equivalents.
+                    Process Your Transcript and Equivalents.
                   </p>
                 </div>
 
@@ -103,7 +103,7 @@ const Home = () => {
                   <img src={Payment1} alt="" className="w-60 h-78" />
                 </div>
               </article>
-              <article className="lg:flex lg:flex-row-reverse justify-around grid mx-auto mt-10 lg:mt-0">
+              <article className="lg:flex lg:flex-row-reverse justify-around flex-row  grid mx-auto mt-10 lg:mt-0">
                 <div
                   className="mx-auto"
                   data-aos="fade-left"
@@ -136,9 +136,9 @@ const Home = () => {
                 </li>
               </ul>
               <div className="mt-6 text-center flex flex-row  mx-auto justify-center">
-                <p className="font-light italic text-sm"> Copyright</p>
+                <p className="font-light  text-sm"> Copyright</p>
                 <i className="fas fa-copyright ml-1 mt-1" />
-                <p className="ml-1 font-light text-sm italic">2023 Transcert</p>
+                <p className="ml-1 font-light text-sm ">2023 Transcert</p>
               </div>
             </div>
           </>

@@ -40,10 +40,8 @@ const ContextProvider = (props) => {
   const form = useRef();
 
   // ----------------------------------------------------------
-  const initialToken = localStorage.getItem("user");
+  const initialToken= localStorage.getItem("user");
 
-  // console.log(JSON.parse(initialToken));
-  // const loadData = JSON.parse(initialToken)
   // STATE FOR FORM DETAILS
   const [fullName, setFullName] = useState("");
   const [emailAdd1, setEmailAdd1] = useState("");
@@ -85,6 +83,7 @@ const ContextProvider = (props) => {
           password,
           regPhoneNumber,
           id: response.user.uid,
+          regStatus: true
         });
       })
       .then(() => {
@@ -130,10 +129,16 @@ const ContextProvider = (props) => {
       });
   };
 
+  const obj = {
+    name: 'tope',
+    age: null
+
+  };
+  const user1 = auth.currentUser
   const login = () => {
     setIsLoading(true);
     signInWithEmailAndPassword(auth, email, password)
-      .then((response) => {
+    .then((response) => {
         onValue(ref(db), (snapshot) => {
           const responseData = snapshot.val();
           let allUsers = [];
@@ -144,27 +149,29 @@ const ContextProvider = (props) => {
               name: responseData[key].name,
               email: responseData[key].email,
               password: responseData[key].password,
-              regData: responseData[key].regData,
+              // regData: responseData[key].regData,
+              regStatus: responseData[key].regStatus
             });
 
             console.log(allUsers);
-
+      
+            
             const userIn = allUsers.filter((obj) => {
               return obj.id === auth.currentUser.uid;
             });
             userInFinal = userIn[0];
-
-            // const regStatus = userInFinal.regData.RegStatus
+            
             const displayName = userIn.map((obj) => {
               return obj.name;
             });
             auth.currentUser.displayName = displayName[0];
-            // auth.currentUser.phoneNumber = userInFinal.regData.regStatus;
+          
+           
           }
-          console.log(auth);
-
+       
+          
           const userName = auth.currentUser.displayName;
-          const regStatusFinal = auth.currentUser.phoneNumber;
+         
           //   if(regStatusFinal){
 
           //     const userData = {
@@ -184,8 +191,14 @@ const ContextProvider = (props) => {
           //   }
           //   localStorage.setItem('user',  JSON.stringify(userData));
           // } else if(!regStatusFinal){
-          localStorage.setItem("user", userName);
-
+            
+            
+            // const sessionData ={
+            //   user: userName,
+            //   regStatus: userInFinal.regStatus
+            // }
+          localStorage.setItem('user',  auth.currentUser.displayName);
+          auth.currentUser.phoneNumber = 
           navigate("/main");
           setErrorMsg("");
         });
@@ -215,10 +228,11 @@ const ContextProvider = (props) => {
         }
       });
   };
-
+  const regStatus = userInFinal.regStatus
   const logout = async (pop) => {
     await signOut(auth);
     localStorage.removeItem("user");
+    // console.log(auth.currentUser.displayName)
     setErrorMsg("");
     if (pop === "register") {
       navigate("/signUp");
@@ -227,6 +241,13 @@ const ContextProvider = (props) => {
     }
   };
 
+  const homeSignUpBtn = ()=>{
+      if(!initialToken){
+        navigate("/signUp");
+      }else{
+        navigate("/home");
+      }
+  }
   const handleAddData = () => {
     setDataStatus(true);
   };
@@ -259,7 +280,14 @@ const ContextProvider = (props) => {
       top:0, left:0 , behavior: "smooth"
     });
   }
-
+   const newString = []   
+        const string1 = 'Fullname:tope,EmailAddress1:tope@gmail.com,EmailAddress2:tope@gmail.com,Phonenumber:55555555555,RegistrationNumber:555555555,Department:Physiology,Faculty:BMS,Programme:Special,Sessionofentry:2011/2012,Sessionofgraduation:,DateofBirth:2023-02-16'
+        const string2 = string1.split(',').map((string1)=>{
+              newString.push(' '+ string1)
+        })
+        console.log(newString.join(',').replaceAll(':', ': '))
+      const string3 = 'taa:po'
+      console.log(string3.replace(':', ': '))
   return (
     <ContextCreate.Provider
       value={{
@@ -308,7 +336,20 @@ const ContextProvider = (props) => {
         form,
         navigate,
         sendEmail,
-        topScroll
+        topScroll,
+        regStatus,
+        fullName,
+        emailAdd1,
+        emailAdd2,
+        phoneNumber,
+        regNumber,
+        department,
+        faculty,
+        programme,
+        sessOfEntry,
+        sessOfGraduation,
+        dateOfBirth,
+        homeSignUpBtn
       }}
     >
       {props.children}
