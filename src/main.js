@@ -32,7 +32,7 @@ const Main = () => {
               return (
                 <>
             <div className="h-screen">
-              <h3 className="mt-16 pl-2 ">Hi, {initialToken}</h3>
+              <h3 className="mt-24 pl-2 ">Hi, {initialToken}</h3>
             </div>
             <Footer/>
             </>

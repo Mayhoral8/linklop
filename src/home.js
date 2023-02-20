@@ -21,7 +21,7 @@ const Home = () => {
         const { topScroll, homeSignUpBtn } = value;
         return (
           <>
-            <section className="lg:flex lg:flex-row-reverse py-8 w-full lg:w-full lg:h-96 bg-blue-base text-gray mx-auto">
+            <section className="lg:flex lg:flex-row-reverse lg:mt-12 py-8 w-full lg:w-full lg:h-96 bg-blue-base text-gray mx-auto">
               <div
                 className="lg:mt-6 mt-16 lg:mx-52 mx-auto  lg:w-72 lg:h-86 w-44 h-56"
                 data-aos="fade-left"

@@ -337,6 +337,7 @@ const ContextProvider = (props) => {
         navigate,
         sendEmail,
         topScroll,
+        homeSignUpBtn,
         regStatus,
         fullName,
         emailAdd1,
@@ -349,7 +350,6 @@ const ContextProvider = (props) => {
         sessOfEntry,
         sessOfGraduation,
         dateOfBirth,
-        homeSignUpBtn
       }}
     >
       {props.children}
