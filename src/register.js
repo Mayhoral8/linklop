@@ -29,7 +29,7 @@ const Register = () => {
 
           return (
             <>
-             <div className="mt-20">
+             <div className="mt-24">
 
 <img src={TranscertLogo} alt="" className="w-40 mt-5 mx-auto"/>
 </div>

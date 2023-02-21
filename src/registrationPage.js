@@ -107,7 +107,7 @@ return (
             return (
               <>
             <div className="mx-auto block">
-             <h2 className="ml-10 box mx-auto block text-center">
+             <h2 className="ml-10 mt-10 box mx-auto block text-center">
                 Welcome Back, {initialToken}
               </h2>
               { <h3 className="text-center">{initialToken ? 'Registered' : 'Not Registered'}</h3> }
@@ -134,7 +134,7 @@ return (
                     placeholder="example@gmail.com"
                  
                     type="email"
-                    className="border focus:outline-none py-2 px-4 pb-2"
+                    className="border focus:outline-none py-2 px-4 "
                     required
                     onChange={(e)=> setEmailAdd1(()=>{
                       console.log(emailAdd1)
@@ -151,7 +151,7 @@ return (
                     placeholder="example@gmail.com"
                  
                     type="email"
-                    className="border focus:outline-none py-2  px-4 pb-2"
+                    className="border focus:outline-none py-2  px-4 "
                     onChange={(e)=> setEmailAdd2(e.target.value)}
                   />
                   <div>

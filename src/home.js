@@ -23,7 +23,7 @@ const Home = () => {
           <>
             <section className="lg:flex lg:flex-row-reverse lg:mt-12 py-8 w-full lg:w-full lg:h-96 bg-blue-base text-gray mx-auto">
               <div
-                className="lg:mt-6 mt-16 lg:mx-52 mx-auto  lg:w-72 lg:h-86 w-44 h-56"
+                className="lg:mt-6 mt-16 lg:mx-52 mx-auto  lg:w-60 lg:h-64 w-44 h-56"
                 data-aos="fade-left"
                 data-aos-easing="ease-out"
                 data-aos-duration="1200"
@@ -44,7 +44,7 @@ const Home = () => {
                 </h3>
                 
                   <button
-                    className="block bg-orange-base text-white w-44 mt-8 rounded-lg h-10 mx-auto lg:mx-0"
+                    className="block bg-orange-base text-white w-44 mt-8 rounded-lg h-12 lg:h-12 mx-auto lg:mx-0"
                     onClick={() => {topScroll(); homeSignUpBtn()}}
                   >
                     Create A Free Account

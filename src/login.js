@@ -40,7 +40,7 @@ const Login = () => {
         // }
           return (
             <>
-            <div className="mt-20">
+            <div className="mt-24">
                 <img src={TranscertLogo} alt="" className="w-40 mt-5 mx-auto"/>
             </div>
             <h1 className="text-center text-md mt-10 ">Welcome Back! <br/> Sign In</h1>

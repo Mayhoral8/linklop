@@ -25,7 +25,7 @@ const Navbar = () => {
 
           return (
             <section className="lg:flex lg:justify-evenly lg:flex-row top-0 fixed h-12 lg:h-20 z-10 bg-white w-full shadow-md">
-              <div className=" my-auto flex flex-row justify-between ">
+              <div className="my-auto flex flex-row justify-between px-2 ">
                 <Link to="/">
                   <img
                     src={TranscertLogo}
@@ -39,12 +39,12 @@ const Navbar = () => {
                         }
                       })
                     }
-                    className="lg:ml-12 lg:mt-0 mt-2.5 box text-black  lg:w-44 w-32 "
+                    className="lg:ml-12 lg:mt-0 mt-2.5 box text-black  lg:w-40 w-28 "
                   />
                 </Link>
                 {show ? (
                   <i
-                    className="fas fa-bars my-auto cursor-pointer px-4 lg:hidden mt-4 text-blue-base"
+                    className="fas fa-bars my-auto cursor-pointer  lg:hidden mt-4 text-blue-base"
                     onClick={() =>
                       setShow(() => {
                         return !show;
@@ -53,7 +53,7 @@ const Navbar = () => {
                   />
                 ) : (
                   <i
-                    className="fas fa-close my-auto cursor-pointer px-4 lg:hidden mt-4 text-blue-base"
+                    className="fas fa-close my-auto cursor-pointer  lg:hidden mt-4 text-blue-base"
                     onClick={() =>
                       setShow(() => {
                         return !show;
@@ -63,7 +63,7 @@ const Navbar = () => {
                 )}
               </div>
               <div
-                className={`h-0 lg:mt-7 lg:flex lg:pl-20  lg:justify-end navbar-project lg:visible sticky transition-all ease-in delay-400 ${
+                className={`h-0 lg:mt-7 mt-4 lg:flex lg:pl-20  lg:justify-end navbar-project lg:visible sticky transition-all ease-in delay-400 ${
                   show ? "h-0" : "h-48 lg:h-0"
                 } bg-orange-base w-full  top-0 z-20 absolute block`}
               >
@@ -80,7 +80,7 @@ const Navbar = () => {
                     <Link to="/registration">
                       <button
                         type="button"
-                        className={`${initialToken ? "visible" : "hidden"}`}
+                        className={`${initialToken ? "visible" : "hidden"}  text-white`}
                         onClick={() => {
                           setShow(!show);
                         }}
@@ -89,7 +89,7 @@ const Navbar = () => {
                       </button>
                     </Link>
                   </div>
-                  <div className={`${initialToken ? "visible" : "hidden"}`}>
+                  <div className={`${initialToken ? "visible" : "hidden"} sm:text-white`}>
                     <Link to="/payment">
                       <button
                         onClick={() => {
@@ -105,7 +105,7 @@ const Navbar = () => {
                   <div>
                     <button
                       type="button"
-                      className={`${initialToken ? "visible" : "hidden"}`}
+                      className={`${initialToken ? "visible" : "hidden"} text-white`}
                       onClick={() => {
                         logout();
                         setShow(!show);
@@ -144,6 +144,7 @@ const Navbar = () => {
                         } lg:mt-1  `}
                         onClick={() => {
                           logout("register");
+                          topScroll();
                           setShow(!show);
                         }}
                       >
