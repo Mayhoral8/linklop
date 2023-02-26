@@ -1,19 +1,28 @@
-import React, {useRef}from "react";
+import React, {useRef, useEffect}from "react";
 import { Navigate, useNavigate } from "react-router-dom";
-import { useState } from "react";
 import { ConsumerContext } from "./context";
-import { db } from "./firebase-config";
-import { auth, fetchUrl } from "./firebase-config";
-import {ref, uploadBytes, listAll, getDownloadURL, getBlob} from 'firebase/storage'
-import { storage } from "./firebase-config";
+import Modal from "./modal";
+import Footer from "./footer";
+import Aos from "aos";
+import "aos/dist/aos.css";
+
 
 const RegistrationPage = ()=>{
-
+  useEffect(() => {
+    Aos.init({ duration: 600 });
+  }, []);
 return (
     <ConsumerContext>
       {(value) => {
-        const { isLoading, updateFunc, initialToken,  logout, ref1, setImagesetFullName, setImage,
+        const { isLoading, 
+          updateFunc, 
+          initialToken,  
+          logout, 
+          ref1, 
+          setImagesetFullName, 
+          setImage,
           image,
+          regStatus,
           setEmailAdd1,
           setEmailAdd2,
           setPhoneNumber,
@@ -37,6 +46,10 @@ return (
           sessOfEntry,
           sessOfGraduation,
           dateOfBirth,
+          setCloseModal, 
+          setOpenModal, 
+          closeModal, 
+          openModal
            } =
           value;
 
@@ -106,14 +119,15 @@ return (
 
             return (
               <>
-            <div className="mx-auto block">
-             <h2 className="ml-10 mt-10 box mx-auto block text-center">
+                { closeModal ? null : <Modal/>}
+            <div className="mx-auto lg:mt-10 block">
+             <h2 className="ml-10  box mx-auto block text-center">
                 Welcome Back, {initialToken}
               </h2>
               { <h3 className="text-center">{initialToken ? 'Registered' : 'Not Registered'}</h3> }
             </div>
               
-              { <div className="w-1/2 mt-10 mx-auto block">
+              { <div className="lg:w-1/2 px-10 lg:mt-10 mx-auto block">
                 <form className="grid gap-y-6 px-2 text-sm" name="myForm" action="/action_page.php" method="post">
                    <div>
                     <label>Full Name (As in official documents)</label>
@@ -274,20 +288,24 @@ return (
                     required
                     onChange={(e)=> setImage(e.target.files[0])}
                   /> */}
-                  <button type="submit" value="submit" className="border w-20 block mx-auto" onClick={(e)=> upload(e)}>SUBMIT</button>
-                  
+                  <button type="submit" disabled={regStatus? true: false} value="submit" className="px-auto flex items-center mx-auto mt-5 px-32 w-72 bg-orange-base rounded-md h-8 my-auto text-white" onClick={(e)=> {upload(e); updateFunc(e)}}>SUBMIT</button>
 
                 </form>
               </div> }
+              <Footer/>
             </>
+
           );
           
         } else{
           return  <Navigate to = '/login'  />
         }
+        <Footer/>
       }
     }
+  
     </ConsumerContext>
+    
     
   );
 }

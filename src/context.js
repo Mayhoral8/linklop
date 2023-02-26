@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { db } from "./firebase-config";
 import { set, ref, update, onValue } from "firebase/database";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+
 // import {uid} from 'uid';
 import { auth, fetchUrl } from "./firebase-config";
 import { useNavigate } from "react-router";
@@ -36,11 +38,14 @@ const ContextProvider = (props) => {
   const [dbImage, setDbImage] = useState(true);
   const [imgUrl, setImgUrl] = useState("");
   const [regPhoneNumber, setRegPhoneNumber] = useState("");
+  const [openModal, setOpenModal] = useState(false)
+  const [closeModal, setCloseModal] = useState(false)
 
   const form = useRef();
 
   // ----------------------------------------------------------
   const initialToken= localStorage.getItem("user");
+  const regStatus = localStorage.getItem('regStatus');
 
   // STATE FOR FORM DETAILS
   const [fullName, setFullName] = useState("");
@@ -58,6 +63,9 @@ const ContextProvider = (props) => {
   // const Main = () => {
   useEffect(() => {
     Aos.init({ duration: 2000 });
+    
+ 
+ 
   }, []);
 
   // EMAIL FUNCTION
@@ -65,6 +73,7 @@ const ContextProvider = (props) => {
   const sendEmail = (e) => {
     e.preventDefault();
   };
+
 
   const nameInputRef = useRef();
   const emailInputRef = useRef();
@@ -198,12 +207,18 @@ const ContextProvider = (props) => {
             //   regStatus: userInFinal.regStatus
             // }
           localStorage.setItem('user',  auth.currentUser.displayName);
+          localStorage.setItem('regStatus', userInFinal.regStatus)
           auth.currentUser.phoneNumber = 
           navigate("/main");
           setErrorMsg("");
         });
         setIsLoading(false);
+        // setTimeout(()=> logout(), 10000)
+        localStorage.setItem('logout', 1000*60*60)
+  
       })
+
+     
       .catch((error) => {
         if (error) {
           setIsLoading(false);
@@ -228,10 +243,17 @@ const ContextProvider = (props) => {
         }
       });
   };
-  const regStatus = userInFinal.regStatus
+
+  useEffect(()=>{
+    setTimeout(()=> logout(), localStorage.getItem('logout'))
+    
+    }, [initialToken])
+ 
   const logout = async (pop) => {
     await signOut(auth);
     localStorage.removeItem("user");
+    localStorage.removeItem("logout");
+
     // console.log(auth.currentUser.displayName)
     setErrorMsg("");
     if (pop === "register") {
@@ -251,28 +273,46 @@ const ContextProvider = (props) => {
   const handleAddData = () => {
     setDataStatus(true);
   };
+  const modal= ()=>{
 
+  }
+
+  const resetPword =()=>{
+const auth = getAuth();
+sendPasswordResetEmail(auth, email)
+  .then(() => {
+    // Password reset email sent!
+    // ..
+    console.log('Password reset email sent!')
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log(errorMessage);
+    // ..
+  });
+  }
   const updateFunc = (e, urlRaw) => {
     e.preventDefault();
 
-    const regData = {
-      fullName,
-      emailAdd1,
-      emailAdd2,
-      phoneNumber,
-      regNumber,
-      faculty,
-      department,
-      programme,
-      sessOfEntry,
-      sessOfGraduation,
-      dateOfBirth,
-      IDdoc: urlRaw,
-      RegStatus: true,
-    };
+    // const regData = {
+    //   // fullName,
+    //   // emailAdd1,
+    //   // emailAdd2,
+    //   // phoneNumber,
+    //   // regNumber,
+    //   // faculty,
+    //   // department,
+    //   // programme,
+    //   // sessOfEntry,
+    //   // sessOfGraduation,
+    //   // dateOfBirth,
+    //   // IDdoc: urlRaw,
+    //   RegStatus: true,
+    // };
 
     update(ref(db, `/${auth.currentUser.uid}`), {
-      regData,
+      regStatus: true
     });
   };
   const topScroll = ()=>{
@@ -285,9 +325,16 @@ const ContextProvider = (props) => {
         const string2 = string1.split(',').map((string1)=>{
               newString.push(' '+ string1)
         })
-        console.log(newString.join(',').replaceAll(':', ': '))
+       
       const string3 = 'taa:po'
-      console.log(string3.replace(':', ': '))
+   
+
+      const handleOpenModal =()=>{
+          setOpenModal(true);
+      }
+      const handleCloseModal =()=>{
+        setCloseModal(true);
+    }
   return (
     <ContextCreate.Provider
       value={{
@@ -350,6 +397,13 @@ const ContextProvider = (props) => {
         sessOfEntry,
         sessOfGraduation,
         dateOfBirth,
+        openModal,
+        setOpenModal,
+        closeModal,
+        setCloseModal,
+        handleCloseModal,
+        handleOpenModal,
+        resetPword
       }}
     >
       {props.children}

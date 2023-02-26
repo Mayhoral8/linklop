@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import { ConsumerContext } from "./context";
+import Modal from "./modal";
 
 const Home = () => {
   useEffect(() => {
@@ -18,9 +19,10 @@ const Home = () => {
   return (
     <ConsumerContext>
       {(value) => {
-        const { topScroll, homeSignUpBtn } = value;
+        const {topScroll, homeSignUpBtn, setCloseModal, setOpenModal, closeModal, openModal } = value;
         return (
           <>
+          {/* {!closeModal ? <Modal/> : null} */}
             <section className="lg:flex lg:flex-row-reverse lg:mt-12 py-8 w-full lg:w-full lg:h-96 bg-blue-base text-gray mx-auto">
               <div
                 className="lg:mt-6 mt-16 lg:mx-52 mx-auto  lg:w-60 lg:h-64 w-44 h-56"

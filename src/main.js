@@ -25,14 +25,17 @@ const Main = () => {
     <>
       <ConsumerContext>
         {(value) => {
-          const { initialToken, loadData } = value;
+          const { initialToken, loadData, regStatus } = value;
           console.log(initialToken);
          
             if(initialToken){
               return (
                 <>
+              <div className="flex mt-16 lg:mt-20 flex-row justify-between px-4">
+              <h3 className=" "> Hi, {initialToken}</h3>
+              <h3>Registration Status: {regStatus? 'Registered': 'Not Registered'}</h3>
+              </div>
             <div className="h-screen">
-              <h3 className="mt-24 pl-2 ">Hi, {initialToken}</h3>
             </div>
             <Footer/>
             </>

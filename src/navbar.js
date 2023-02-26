@@ -80,7 +80,7 @@ const Navbar = () => {
                     <Link to="/registration">
                       <button
                         type="button"
-                        className={`${initialToken ? "visible" : "hidden"}  text-white`}
+                        className={`${initialToken ? "visible" : "hidden"}  lg:text-black`}
                         onClick={() => {
                           setShow(!show);
                         }}
@@ -89,7 +89,7 @@ const Navbar = () => {
                       </button>
                     </Link>
                   </div>
-                  <div className={`${initialToken ? "visible" : "hidden"} sm:text-white`}>
+                  <div className={`${initialToken ? "visible" : "hidden"} lg:text-black`}>
                     <Link to="/payment">
                       <button
                         onClick={() => {
@@ -105,7 +105,7 @@ const Navbar = () => {
                   <div>
                     <button
                       type="button"
-                      className={`${initialToken ? "visible" : "hidden"} text-white`}
+                      className={`${initialToken ? "visible" : "hidden"} lg:text-black`}
                       onClick={() => {
                         logout();
                         setShow(!show);

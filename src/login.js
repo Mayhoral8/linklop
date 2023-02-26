@@ -22,7 +22,8 @@ const Login = () => {
             errorMsg,
             isLoading,
             initialToken,
-            setErrorMsg
+            setErrorMsg,
+            resetPword
           } = value;
 
           const handleInputs = () => {
@@ -38,6 +39,8 @@ const Login = () => {
         //   Loading...
         // </button>)
         // }
+        if(!initialToken){
+
           return (
             <>
             <div className="mt-24">
@@ -56,6 +59,7 @@ const Login = () => {
                       className="focus:outline-none border-b-2 mx-auto h-10 text-gray w-72"
                       type="email"
                       placeholder="Email"
+                      disabled={isLoading? true:false}
                       onChange={(e) => setEmail(e.target.value)}
                     />
                      
@@ -63,13 +67,14 @@ const Login = () => {
                       className="focus:outline-none box border-b-2 h-8 w-72 text-gray-700"
                       type="password"
                       placeholder="Password"
+                      disabled={isLoading? true:false}
                       onChange ={(e)=> {setPassword(e.target.value); setErrorMsg('')}}
                       />
                       
                   </div>
                 </div>
                 
-                  <button className="px-auto flex items-center mx-auto mt-5 px-32 w-72 bg-orange-base rounded-md h-8 my-auto text-white" onClick={()=> login()}>Login</button>
+                  <button className="px-auto flex items-center mx-auto mt-5 px-32 w-72 bg-orange-base rounded-md h-8 my-auto text-white" disabled={isLoading? true:false} onClick={()=> login()}>Login</button>
                 
               <div className=" text-center block w-48 mx-auto pb-5 mt-8 text-sm">
               <h6 className="">Don't have an account?</h6> 
@@ -78,6 +83,8 @@ const Login = () => {
                   Sign Up
                 </p>
               </Link>
+            
+              {errorMsg === 'Wrong Password'? <h2 onClick={()=> resetPword()}>Forgot Password?</h2>: null }
               </div>
               <div>
               </div>
@@ -87,6 +94,9 @@ const Login = () => {
              
             </>
           );
+        }else {
+          return  <Navigate to = '/main'  />
+        }
         }}
       </ConsumerContext>
     </>

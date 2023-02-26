@@ -25,8 +25,12 @@ const Register = () => {
             setRegPhoneNumber,
             form,
             sendEmail,
+            initialToken
           } = value;
 
+          if(!initialToken){
+            
+          
           return (
             <>
              <div className="mt-24">
@@ -120,7 +124,10 @@ const Register = () => {
               
               <Footer/>
             </>
-          );
+          )
+          } else {
+            return  <Navigate to = '/main'  />
+          }
         }}
       </ConsumerContext>
     </>
