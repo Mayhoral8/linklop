@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ConsumerContext } from "./context";
 import { db } from "./firebase-config";
 import { auth, fetchUrl } from "./firebase-config";
+import Modal from "./modal";
 import {
   ref,
   uploadBytes,
@@ -25,15 +26,16 @@ const Main = () => {
     <>
       <ConsumerContext>
         {(value) => {
-          const { initialToken, loadData, regStatus } = value;
-          console.log(initialToken);
-         
+          const { initialToken, loadData, regStatus, setOpenModal, openModal } = value;
+          console.log(typeof true);
+          console.log(regStatus)
             if(initialToken){
               return (
                 <>
+                 { openModal ? <Modal/> : null}
               <div className="flex mt-16 lg:mt-20 flex-row justify-between px-4">
-              <h3 className=" "> Hi, {initialToken}</h3>
-              <h3>Registration Status: {regStatus? 'Registered': 'Not Registered'}</h3>
+              <h3 className="text-sm"> Hi, {initialToken}</h3>
+              <h3 className="text-sm">Status: {regStatus === 'undefined'? 'Not Registered': 'Registered'}</h3>
               </div>
             <div className="h-screen">
             </div>

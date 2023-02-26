@@ -76,15 +76,15 @@ const Login = () => {
                 
                   <button className="px-auto flex items-center mx-auto mt-5 px-32 w-72 bg-orange-base rounded-md h-8 my-auto text-white" disabled={isLoading? true:false} onClick={()=> login()}>Login</button>
                 
-              <div className=" text-center block w-48 mx-auto pb-5 mt-8 text-sm">
-              <h6 className="">Don't have an account?</h6> 
+              {errorMsg === 'Wrong Password'? <h2 className="text-center text-sm mt-4" onClick={()=> resetPword()}>Forgot Password?</h2>: null }
+              <div className=" flex flex-row text-center justify-center w-64 mx-auto pb-2 mt-4 text-sm">
+              <h6 className="w-40">Don't have an account?</h6> 
               <Link to ='/signup'>
-                <p className="text-sm text-orange-base w-20 block mx-auto text-center">
+                <p className="text-sm text-orange-base w-18 block mx-auto text-center">
                   Sign Up
                 </p>
               </Link>
             
-              {errorMsg === 'Wrong Password'? <h2 onClick={()=> resetPword()}>Forgot Password?</h2>: null }
               </div>
               <div>
               </div>

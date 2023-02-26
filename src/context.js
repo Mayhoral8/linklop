@@ -46,7 +46,7 @@ const ContextProvider = (props) => {
   // ----------------------------------------------------------
   const initialToken= localStorage.getItem("user");
   const regStatus = localStorage.getItem('regStatus');
-
+  
   // STATE FOR FORM DETAILS
   const [fullName, setFullName] = useState("");
   const [emailAdd1, setEmailAdd1] = useState("");
@@ -92,7 +92,6 @@ const ContextProvider = (props) => {
           password,
           regPhoneNumber,
           id: response.user.uid,
-          regStatus: true
         });
       })
       .then(() => {
@@ -143,7 +142,8 @@ const ContextProvider = (props) => {
     age: null
 
   };
-  const user1 = auth.currentUser
+  // const user1 = auth.currentUser.getIdTokenResult
+  // console.log(user1)
   const login = () => {
     setIsLoading(true);
     signInWithEmailAndPassword(auth, email, password)
@@ -208,17 +208,16 @@ const ContextProvider = (props) => {
             // }
           localStorage.setItem('user',  auth.currentUser.displayName);
           localStorage.setItem('regStatus', userInFinal.regStatus)
+          console.log(userInFinal.regStatus)
           auth.currentUser.phoneNumber = 
           navigate("/main");
           setErrorMsg("");
         });
         setIsLoading(false);
         // setTimeout(()=> logout(), 10000)
-        localStorage.setItem('logout', 1000*60*60)
+        localStorage.setItem('logout', 360000)
   
       })
-
-     
       .catch((error) => {
         if (error) {
           setIsLoading(false);

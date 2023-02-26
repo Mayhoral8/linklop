@@ -111,13 +111,14 @@ const Register = () => {
                     </div>
                   </form>
                 </div>
-              <div className=" text-center block text-sm w-48 mt-8 mx-auto pb-5">
-                <h6 className="">Already have an account?</h6>
-                <Link to="/login">
-                  <p className="text-orange-base text-sm w-20 block mx-auto text-center">
-                    Login
-                  </p>
-                </Link>
+                <div className=" flex flex-row text-center justify-center w-64 mx-auto pb-2 mt-4 text-sm">
+              <h6 className="w-40">Already have an account?</h6> 
+              <Link to ='/login'>
+                <p className="text-sm text-orange-base ml-2 w-18 block mx-auto text-center">
+                  Login
+                </p>
+              </Link>
+            
               </div>
               </div>
               
