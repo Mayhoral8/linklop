@@ -5,7 +5,7 @@ import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
 // import {uid} from 'uid';
 import { auth, fetchUrl } from "./firebase-config";
-import { useNavigate } from "react-router";
+import { useNavigate, Navigate } from "react-router";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -61,13 +61,7 @@ const ContextProvider = (props) => {
   const [dateOfBirth, setDateOfBirth] = useState("");
 
   // const Main = () => {
-  useEffect(() => {
-    Aos.init({ duration: 2000 });
-    
- 
- 
-  }, []);
-
+  
   // EMAIL FUNCTION
 
   const sendEmail = (e) => {
@@ -96,7 +90,8 @@ const ContextProvider = (props) => {
       })
       .then(() => {
         setIsLoading(false);
-        navigate("/login");
+      //  <Navigate to='/login'/>
+       navigate('/login')
         console.log("registered");
       })
       .then(() => {
@@ -142,8 +137,11 @@ const ContextProvider = (props) => {
     age: null
 
   };
-  // const user1 = auth.currentUser.getIdTokenResult
-  // console.log(user1)
+ 
+ 
+   
+  
+
   const login = () => {
     setIsLoading(true);
     signInWithEmailAndPassword(auth, email, password)
@@ -210,12 +208,12 @@ const ContextProvider = (props) => {
           localStorage.setItem('regStatus', userInFinal.regStatus)
           console.log(userInFinal.regStatus)
           auth.currentUser.phoneNumber = 
-          navigate("/main");
+          // <Navigate to = '/main'/>
+          navigate('/main')
           setErrorMsg("");
         });
         setIsLoading(false);
-        // setTimeout(()=> logout(), 10000)
-        localStorage.setItem('logout', 360000)
+        localStorage.setItem('logout', 10000*60*60)
   
       })
       .catch((error) => {
@@ -242,10 +240,19 @@ const ContextProvider = (props) => {
         }
       });
   };
+  console.log(+'100')
 
   useEffect(()=>{
-    setTimeout(()=> logout(), localStorage.getItem('logout'))
-    
+    async function logTimer(){
+      const logoutTime = await +(localStorage.getItem('logout'))
+      if(logoutTime){
+        console.log(+'100')
+          return  setTimeout(()=> logout(), logoutTime)  
+      }else{
+        return;
+      }
+    }
+    logTimer()
     }, [initialToken])
  
   const logout = async (pop) => {
@@ -256,17 +263,21 @@ const ContextProvider = (props) => {
     // console.log(auth.currentUser.displayName)
     setErrorMsg("");
     if (pop === "register") {
-      navigate("/signUp");
+      
+      navigate('/signUp')
     } else {
-      navigate("/login");
+    
+      navigate('/login')
     }
   };
 
   const homeSignUpBtn = ()=>{
       if(!initialToken){
-        navigate("/signUp");
+        
+        navigate('/signUp')
       }else{
-        navigate("/home");
+    
+        navigate('/home')
       }
   }
   const handleAddData = () => {
@@ -276,6 +287,7 @@ const ContextProvider = (props) => {
 
   }
 
+  
   const resetPword =()=>{
 const auth = getAuth();
 sendPasswordResetEmail(auth, email)
@@ -380,7 +392,6 @@ sendPasswordResetEmail(auth, email)
         setImgUrl,
         setRegPhoneNumber,
         form,
-        navigate,
         sendEmail,
         topScroll,
         homeSignUpBtn,
@@ -402,7 +413,9 @@ sendPasswordResetEmail(auth, email)
         setCloseModal,
         handleCloseModal,
         handleOpenModal,
-        resetPword
+        resetPword,
+        
+        
       }}
     >
       {props.children}

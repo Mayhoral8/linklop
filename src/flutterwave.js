@@ -1,5 +1,7 @@
 import React from "react";
 import { FlutterWaveButton, closePaymentModal } from "flutterwave-react-v3";
+import Footer from "./footer";
+import styled from "styled-components"
 
 const FlutterWave = () => {
   const config = {
@@ -31,10 +33,26 @@ const FlutterWave = () => {
   };
 
   return (
-    <div className="App grid h-screen place-items-center">
-      <h1 className="">Hello Test user</h1>
-      <FlutterWaveButton {...fwConfig} />
+    <>
+      <h1 className="capitalize mt-32 text-center">You are about to be redirected to our payment portal</h1>
+    <PaymentStyle>
+    <div className="">
+      <FlutterWaveButton {...fwConfig} className='mt-5 px-32 w-96 bg-orange-base rounded-md h-12 my-auto text-white'/>
     </div>
+    </PaymentStyle>
+      {/* <Footer/> */}
+    </>
   );
 };
+const PaymentStyle = styled.div`
+position: fixed;
+top: 0;
+bottom: 0;
+right: 0;
+left: 0;
+display: flex;
+align-items: center;
+justify-content: center;
+
+`;
 export default FlutterWave;

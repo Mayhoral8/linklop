@@ -70,7 +70,7 @@ const Navbar = () => {
                 <div
                   className={` ${
                     show ? "hidden" : "block"
-                  } lg:flex lg:justify-around lg:w-96 lg:ml-64 text-center`}
+                  } lg:flex lg:justify-around lg:w-96 lg:ml-64 text-center text-white lg:text-gray`}
                 >
                   <div
                     className={`${
@@ -80,7 +80,7 @@ const Navbar = () => {
                     <Link to="/registration">
                       <button
                         type="button"
-                        className={`${initialToken ? "visible" : "hidden"}  lg:text-black`}
+                        className={`${initialToken ? "visible" : "hidden"}  `}
                         onClick={() => {
                           setShow(!show);
                         }}
@@ -89,7 +89,7 @@ const Navbar = () => {
                       </button>
                     </Link>
                   </div>
-                  <div className={`${initialToken ? "visible" : "hidden"} lg:text-black`}>
+                  <div className={`${initialToken ? "visible" : "hidden"}`}>
                     <Link to="/payment">
                       <button
                         onClick={() => {
@@ -105,7 +105,7 @@ const Navbar = () => {
                   <div>
                     <button
                       type="button"
-                      className={`${initialToken ? "visible" : "hidden"} lg:text-black`}
+                      className={`${initialToken ? "visible" : "hidden"}`}
                       onClick={() => {
                         logout();
                         setShow(!show);

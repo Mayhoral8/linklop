@@ -29,8 +29,6 @@ const Register = () => {
           } = value;
 
           if(!initialToken){
-            
-          
           return (
             <>
              <div className="mt-24">
