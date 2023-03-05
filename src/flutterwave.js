@@ -37,7 +37,7 @@ const FlutterWave = () => {
       <h1 className="capitalize mt-32 text-center">You are about to be redirected to our payment portal</h1>
     <PaymentStyle>
     <div className="">
-      <FlutterWaveButton {...fwConfig} className='mt-5 px-32 w-96 bg-orange-base rounded-md h-12 my-auto text-white'/>
+      <FlutterWaveButton {...fwConfig} className='mt-5 px-24 w-72 bg-orange-base rounded-md h-12 my-auto text-white'/>
     </div>
     </PaymentStyle>
       {/* <Footer/> */}

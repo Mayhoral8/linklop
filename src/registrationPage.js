@@ -5,6 +5,7 @@ import Modal from "./modal";
 import Footer from "./footer";
 import Aos from "aos";
 import "aos/dist/aos.css";
+import documentUpload from './img/documentUpload.png';
 
 
 const RegistrationPage = ()=>{
@@ -129,13 +130,18 @@ return (
             return (
               <>
                 { openModal ? <Modal/> : null}
-            <div className="mx-auto lg:mt-20 block">
-             <h2 className="ml-10  box mx-auto block text-center">
+            <div className="mx-auto lg:mt-32 block">
+            <h2 className=" mt-20 lg:mt-8 text-center text-2xl font-bold text-orange-base">
+              WELCOME TO THE REGISTRATION PAGE
+              </h2>
+              <img src={documentUpload} alt='' className="w-64 mt-2 h-76 mx-auto"/>
+             <h2 className=" mt-4 text-center capitalize">
+              PLEASE, CAREFULLY FILL IN YOUR DETAILS BELOW
               </h2>
             </div>
               
-              { <div className="lg:w-1/2 px-10 lg:mt-32 mx-auto block">
-                <form className="grid gap-y-6 mt-32 px-2 text-sm" name="myForm" action="/action_page.php" method="post">
+              { <div className="lg:w-1/2 px-10 lg:mt-24 mx-auto block">
+                <form className="grid gap-y-6 mt-8  text-sm mx-auto" name="myForm" action="/action_page.php" method="post">
                    <div>
                     <label>Full Name (As in official documents)</label>
                     <span className="text-red-400">*</span>
@@ -295,7 +301,7 @@ return (
                     required
                     onChange={(e)=> setImage(e.target.files[0])}
                   /> */}
-                  <button type="submit" disabled={regStatus === 'undefined'? false: true} value="submit" className="px-auto flex items-center mx-auto mt-5 px-32 w-72 bg-orange-base rounded-md h-8 my-auto text-white" onClick={(e)=> {upload(e); updateFunc(e)}}>SUBMIT</button>
+                  <button type="submit" disabled={regStatus === 'undefined'? false: true} value="submit" className="px-auto flex items-center mx-auto mt-5 px-28 w-72 bg-orange-base rounded-md h-8 my-auto text-white" onClick={(e)=> {upload(e); updateFunc(e)}}>SUBMIT</button>
 
                 </form>
               </div> }

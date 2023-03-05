@@ -53,7 +53,7 @@ const Home = () => {
                 data-aos-easing="ease-out"
                 data-aos-duration="1200"
               >
-                <div className="font-Opensans lg:text-large text-center text-3xl font-bold text-white mt-12  lg:text-left">
+                <div className="font-Opensans lg:text-large text-center text-2xl font-bold text-white mt-12  lg:text-left">
                   <h3>GET YOUR</h3>
 
                 <span className=" text-orange-base "> 
