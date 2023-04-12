@@ -130,18 +130,19 @@ return (
             return (
               <>
                 { openModal ? <Modal/> : null}
-            <div className="mx-auto lg:mt-32 block">
-            <h2 className=" mt-20 lg:mt-8 text-center text-2xl font-bold text-orange-base">
+            <div className="bg-orange-base h-72 font-openSans mx-auto lg:mt-20 block">
+            <h2 className="text-center  mt-22 lg:mt-6 lg:py-8 py-14 lg:text-2xl font-bold text-white">
               WELCOME TO THE REGISTRATION PAGE
               </h2>
-              <img src={documentUpload} alt='' className="w-64 mt-2 h-76 mx-auto"/>
-             <h2 className=" mt-4 text-center capitalize">
-              PLEASE, CAREFULLY FILL IN YOUR DETAILS BELOW
-              </h2>
+              <img src={documentUpload} alt='' className="w-40 lg:mt-4 h-40 mx-auto"/>
+             
             </div>
               
-              { <div className="lg:w-1/2 px-10 lg:mt-24 mx-auto block">
-                <form className="grid gap-y-6 mt-8  text-sm mx-auto" name="myForm" action="/action_page.php" method="post">
+              { <div className="font-openSans lg:w-1/2 px-10 lg:mt-16 mx-auto block">
+              <h2 className=" font-normal mt-16 text-center  font-medium ">
+             Please, carefully fill in your details.
+              </h2>
+                <form className=" grid gap-y-6 mt-14  text-sm mx-auto" name="myForm" action="/action_page.php" method="post">
                    <div>
                     <label>Full Name (As in official documents)</label>
                     <span className="text-red-400">*</span>
@@ -170,17 +171,7 @@ return (
                     })
                     }
                   />
-                  <div>
-                    <label>Email address 2</label>
-                    <span className="text-red-400"></span>
-                  </div>
-                  <input
-                    placeholder="example@gmail.com"
-                 
-                    type="email"
-                    className="border focus:outline-none py-2  px-4 "
-                    onChange={(e)=> setEmailAdd2(e.target.value)}
-                  />
+                  
                   <div>
                     <label>Phone Number</label>
                     <span className="text-red-500">*</span>
@@ -241,33 +232,7 @@ return (
                     <option value="Regular">Regular</option>
                     <option value="Special">Special</option>
                   </select>
-                  <div>
-                    <label >Session of Entry:</label>{" "}
-                    <span className="text-red-500">*</span>
-                  </div>
-                  <select
-                    name=""
-                    id=""
-                    
-                    className="border py-2 px-4 pb-2 "
-                    required
-                    onChange={(e)=> setSessOfEntry(e.target.value)}
-                  >
-                    <option disabled selected value='' className="font-italics">Choose A Year</option>
-                    <option value="2010/2011">2010/2011</option>
-                    <option value="2011/2012">2011/2012</option>
-                    <option value="2012/2013">2012/2013</option>
-                    <option value="2013/2014">2013/2014</option>
-                    <option value="2000/2001">2014/2015</option>
-                    <option value="2015/2016">2015/2016</option>
-                    <option value="2016/2017">2016/2017</option>
-                    <option value="2017/2018">2017/2018</option>
-                    <option value="2018/2019">2018/2019</option>
-                    <option value="2019/2020">2019/2020</option>
-                    <option value="2020/2021">2020/2021</option>
-                    <option value="2021/2022">2021/2022</option>
-                    <option value="2022/2023">2022/2023</option>
-                  </select>
+                 
                   <div>
                     <label>Session Of Graduation:</label>{" "}
                     <span className="text-red-500">*</span>

@@ -53,8 +53,8 @@ const Home = () => {
                 data-aos-easing="ease-out"
                 data-aos-duration="1200"
               >
-                <div className="font-Opensans lg:text-large text-center text-2xl font-bold text-white mt-12  lg:text-left">
-                  <h3>GET YOUR</h3>
+                <div className="font-openSans capitalize lg:text-large text-center text-2xl font-bold text-white mt-12  lg:text-left">
+                  <h3>Get your</h3>
 
                 <span className=" text-orange-base "> 
                 <TypeWriterEffect
@@ -64,9 +64,9 @@ const Home = () => {
          textAlign: 'center',
         }}
         multiText={[
-          'TRANSCRIPT',
-          'COVER LETTER',
-          'ENGLISH PROFICIENCY LETTER',
+          'Transcript',
+          'Certificate',
+          'English Proficiency Letter',
          
         ]}
         multiTextDelay={4000}
@@ -76,12 +76,12 @@ const Home = () => {
                 
                  </span>
                 
-                  <h3>FROM UNIZIK IN</h3> 
-                  <h3>7-14 DAYS</h3>
+                  <h3>From Unizik in</h3> 
+                  <h3>7-14 days</h3>
                 </div>
                 
                   <button
-                    className="block bg-orange-base text-white w-44 mt-8 rounded-lg h-12 lg:h-12 mx-auto lg:mx-0"
+                    className="block font-openSans bg-orange-base text-white w-48 mt-8 rounded-lg h-12 lg:h-12 mx-auto lg:mx-0"
                     onClick={() => {topScroll(); homeSignUpBtn()}}
                   >
                     Create A Free Account
@@ -91,7 +91,7 @@ const Home = () => {
             </section>
 
             <section className="mt-10">
-              <h2 className="text-center">GET STARTED IN 3 EASY STEPS</h2>
+              <h2 className="text-center font-openSans font-bold">GET STARTED IN 3 EASY STEPS</h2>
 
               <article className="lg:flex lg:flex-row-reverse mx-auto justify-around">
                 <div
@@ -108,10 +108,10 @@ const Home = () => {
                   data-aos-easing="ease-out"
                   data-aos-duration="1200 "
                 >
-                  <h2 className="text-center block font-bold ">REGISTER</h2>
-                  <p className="mt-2 text-gray">
-                    It's Quick, Easy, and Secure. Rest Assured That Your Details
-                    Are Safe. Simply click the "Sign Up" button
+                  <h2 className="text-center block font-bold font-openSans">REGISTER</h2>
+                  <p className="mt-2 text-gray font-openSans font-normal">
+                    It's quick, easy, and secure. Rest assured that your details
+                    are safe. Simply click the "Sign Up" button
                   </p>
                 </div>
               </article>
@@ -122,12 +122,12 @@ const Home = () => {
                   data-aos-easing="ease-out"
                   data-aos-duration="1200"
                 >
-                  <h2 className=" text-center block font-bold">
+                  <h2 className=" text-center block font-bold font-openSans">
                     UPLOAD DETAILS
                   </h2>
-                  <p className="mt-2 text-center">
-                    Next, Supply Details and Official Documents From UNIZIK To
-                    Process Your Transcript and Equivalents.
+                  <p className="mt-2 text-gray text-center font-normal font-openSans">
+                    Next, supply your details and official documents from UNIZIK to
+                    process your transcript and equivalents.
                   </p>
                 </div>
 
@@ -155,9 +155,9 @@ const Home = () => {
                   data-aos-easing="ease-out"
                   data-aos-duration="1200"
                 >
-                  <h2 className=" text-center font-bold block">PAYMENT</h2>
-                  <p className="mt-2 text-center">
-                    Finish by paying a token. We accept Flutterwave as a payment
+                  <h2 className=" text-center font-bold block font-openSans">PAYMENT</h2>
+                  <p className="mt-2 text-gray font-normal text-center font-openSans">
+                    Finish by paying a token. We accept Paystack as a payment
                     method for all types of online transactions!
                   </p>
                 </div>

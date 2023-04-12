@@ -4,7 +4,7 @@ import TranscertLogo from './img/TranscertLogo.png'
 const Footer = () => {
   return (
     <div>
-      <div className="bg-gray  my-auto text-white h-20 100vh left-0 bottom-0 right-0 pb-14 mt-auto">
+      <div className=" font-openSans bg-gray  my-auto text-white h-20 100vh left-0 bottom-0 right-0 pb-14 mt-auto">
         <ul className="flex flex-row px-12 justify-around">
           <li>
             <a href="">Contact Us</a>

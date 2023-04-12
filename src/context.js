@@ -213,7 +213,7 @@ const ContextProvider = (props) => {
           setErrorMsg("");
         });
         setIsLoading(false);
-        localStorage.setItem('logout', 10000*60*60)
+        localStorage.setItem('logout', 10000 * 60 * 60)
   
       })
       .catch((error) => {

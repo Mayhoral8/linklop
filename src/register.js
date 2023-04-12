@@ -36,7 +36,7 @@ const Register = () => {
 <img src={TranscertLogo} alt="" className="w-40 mt-5 mx-auto"/>
 </div>
               <div className="mt-12 h-screen">
-                <h1 className="text-center text-md">Sign Up</h1>
+                <h1 className="font-openSans font-medium text-center text-md">Sign Up</h1>
                 <h4 className="text-center text-red-500 font-bold h-6">
                   {errorMsg}
                 </h4>
@@ -50,7 +50,7 @@ const Register = () => {
                 </span>
                 <div className="">
                   <form ref={form} onSubmit={sendEmail}>
-                    <div className=" mx-auto w-72 mt-6 grid grid-cols-2 h-52 ">
+                    <div className=" font-openSans mx-auto w-72 mt-6 grid grid-cols-2 h-52 ">
                       <div className="grid grid-cols-1 text-sm text-gray-900">
                         <input
                           className="focus:outline-none border-b mx-auto h-10 text-gray-900 w-72 border-gray-300"
@@ -97,7 +97,7 @@ const Register = () => {
                       </div>
                     </div>
 
-                    <div className=" mx-auto flex flex-row justify-between w-72 bg-orange-base rounded-lg h-8 mt-8 text-white">
+                    <div className=" font-openSans mx-auto flex flex-row justify-between w-72 bg-orange-base rounded-lg h-8 mt-8 text-white">
                       <button
                         className="box my-auto  mx-auto"
                         onClick={(e) => {
@@ -109,10 +109,10 @@ const Register = () => {
                     </div>
                   </form>
                 </div>
-                <div className=" flex flex-row text-center justify-center w-64 mx-auto pb-2 mt-4 text-sm">
-              <h6 className="w-40">Already have an account?</h6> 
+                <div className=" font-openSans flex flex-row text-center justify-center w-64 mx-auto pb-2 mt-4 text-sm">
+              <h6 className="w-44">Already have an account?</h6> 
               <Link to ='/login'>
-                <p className="text-sm text-orange-base ml-2 w-18 block mx-auto text-center">
+                <p className="font-openSans text-sm text-orange-base ml-2 w-18 block mx-auto text-center">
                   Login
                 </p>
               </Link>

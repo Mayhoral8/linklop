@@ -24,7 +24,7 @@ const Navbar = () => {
           } = value;
 
           return (
-            <section className="lg:flex lg:justify-evenly lg:flex-row top-0 fixed h-12 lg:h-20 z-10 bg-white w-full shadow-md">
+            <section className="font-openSans lg:flex lg:justify-evenly lg:flex-row top-0 fixed h-12 lg:h-20 z-10 bg-white w-full shadow-md">
               <div className="my-auto flex flex-row justify-between px-2 ">
                 <Link to="/">
                   <img

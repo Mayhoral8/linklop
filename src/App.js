@@ -8,6 +8,7 @@ import Home from "./home";
 import RegistrationPage from "./registrationPage";
 import FlutterWave from "./flutterwave";
 import Footer from "./footer";
+import Paystack from "./paystack";
 import { ConsumerContext } from "./context";
 const App = () => {
   return (
@@ -34,6 +35,8 @@ const App = () => {
                 <Route path='/home' element = {<Home/>}/>
                 <Route path="/signUp" element={<Register />} />
                 <Route path="/payment" element={<FlutterWave />} />
+                <Route path="/paystack" element={<Paystack />} />
+
               </Routes>
             </>
           );
