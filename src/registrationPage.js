@@ -130,16 +130,15 @@ return (
             return (
               <>
                 { openModal ? <Modal/> : null}
-            <div className="bg-orange-base h-72 font-openSans mx-auto lg:mt-20 block">
-            <h2 className="text-center  mt-22 lg:mt-6 lg:py-8 py-14 lg:text-2xl font-bold text-white">
-              WELCOME TO THE REGISTRATION PAGE
+            <div className=" bg-blue-base h-72 font-openSans mx-auto lg:mt-20 block">
+            <h2 className=" text-center mt-10 lg:mt-6 py-32  lg:text-3xl font-bold text-white">
+              Welcome To The Registration Page
               </h2>
-              <img src={documentUpload} alt='' className="w-40 lg:mt-4 h-40 mx-auto"/>
              
             </div>
               
               { <div className="font-openSans lg:w-1/2 px-10 lg:mt-16 mx-auto block">
-              <h2 className=" font-normal mt-16 text-center  font-medium ">
+              <h2 className="mt-16 text-center  font-bold ">
              Please, carefully fill in your details.
               </h2>
                 <form className=" grid gap-y-6 mt-14  text-sm mx-auto" name="myForm" action="/action_page.php" method="post">
@@ -149,8 +148,9 @@ return (
                   </div>
                   <input
                     name='fname'
+                    placeholder="name"
                     type="text"
-                    className="border focus:outline-none px-4 py-2 pb-2"
+                    className="border rounded-md border-gray focus:outline-none px-4 py-2 pb-2"
                     required
                     onChange={(e)=> setFullName(e.target.value)}
                   />
@@ -162,7 +162,7 @@ return (
                     placeholder="example@gmail.com"
                  
                     type="email"
-                    className="border focus:outline-none py-2 px-4 "
+                    className="border rounded-md focus:outline-none py-2 px-4 "
                     required
                     onChange={(e)=> setEmailAdd1(()=>{
                       console.log(emailAdd1)
@@ -182,7 +182,7 @@ return (
                     type="text"
                     maxLength="11"
                     minLength="11"
-                    className="border focus:outline-none py-2  px-4 pb-2"
+                    className="border rounded-md focus:outline-none py-2  px-4 pb-2"
                     required
                     onChange={(e)=> setPhoneNumber(e.target.value)}
                   />
@@ -196,7 +196,7 @@ return (
                     placeholder="Registration Number"
                    
                     type="text"
-                    className="border focus:outline-none py-2  px-4 pb-2"
+                    className="border rounded-md focus:outline-none py-2  px-4 pb-2"
                     required
                     onChange={(e)=> setRegNumber(e.target.value)}
                   />
@@ -207,7 +207,7 @@ return (
                   <input
                     placeholder="Faculty Name"
                     type="text"
-                    className="border focus:outline-none py-2 px-4 pb-2"
+                    className="border rounded-md focus:outline-none py-2 px-4 pb-2"
                     required
                     onChange={(e)=> setFaculty(e.target.value)}
                   />
@@ -218,7 +218,7 @@ return (
                   <input
                     placeholder="Department"
                     type="text"
-                    className="border focus:outline-none py-2  px-4 pb-2"
+                    className="border rounded-md focus:outline-none py-2  px-4 pb-2"
                     required
                     onChange={(e)=> setDepartment(e.target.value)}
                   />

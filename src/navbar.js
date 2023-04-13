@@ -77,6 +77,23 @@ const Navbar = () => {
                       show ? "hidden" : "block"
                     } text-center lg:block`}
                   >
+                    <Link to="/dashboard">
+                      <button
+                        type="button"
+                        className={`${initialToken ? "visible" : "hidden"}  `}
+                        onClick={() => {
+                          setShow(!show);
+                        }}
+                      >
+                        Dashboard
+                      </button>
+                    </Link>
+                  </div>
+                  <div
+                    className={`${
+                      show ? "hidden" : "block"
+                    } text-center lg:block`}
+                  >
                     <Link to="/registration">
                       <button
                         type="button"

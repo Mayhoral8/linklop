@@ -36,7 +36,7 @@ const Register = () => {
 <img src={TranscertLogo} alt="" className="w-40 mt-5 mx-auto"/>
 </div>
               <div className="mt-12 h-screen">
-                <h1 className="font-openSans font-medium text-center text-md">Sign Up</h1>
+                <h1 className="font-openSans font-bold text-center text-md">Create An Account</h1>
                 <h4 className="text-center text-red-500 font-bold h-6">
                   {errorMsg}
                 </h4>

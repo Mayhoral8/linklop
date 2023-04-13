@@ -209,7 +209,7 @@ const ContextProvider = (props) => {
           console.log(userInFinal.regStatus)
           auth.currentUser.phoneNumber = 
           // <Navigate to = '/main'/>
-          navigate('/main')
+          navigate('/dashboard')
           setErrorMsg("");
         });
         setIsLoading(false);
@@ -240,7 +240,6 @@ const ContextProvider = (props) => {
         }
       });
   };
-  console.log(+'100')
 
   useEffect(()=>{
     async function logTimer(){

@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Login from "./login";
-import Main from "./main";
+import Dashboard from "./dashboard";
 import Register from "./register";
 import Navbar from "./navbar";
 import Home from "./home";
@@ -29,12 +29,12 @@ const App = () => {
               <Navbar />
               <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/main" element={<Main />} />
+                <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/registration" element={<RegistrationPage />}  />
                 <Route path='/home' element = {<Home/>}/>
                 <Route path="/signUp" element={<Register />} />
-                <Route path="/payment" element={<FlutterWave />} />
+                <Route path="/payment" element={<Paystack />} />
                 <Route path="/paystack" element={<Paystack />} />
 
               </Routes>
