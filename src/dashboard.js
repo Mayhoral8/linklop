@@ -26,7 +26,7 @@ const Dashboard = () => {
     <>
       <ConsumerContext>
         {(value) => {
-          const { initialToken, loadData, regStatus, setOpenModal, openModal } = value;
+          const { initialToken, loadData, regStatus, setOpenModal, openModal, paymentStatus } = value;
           console.log(typeof true);
           console.log(regStatus)
             if(initialToken){
@@ -55,9 +55,9 @@ const Dashboard = () => {
                       
               
               <h2 className=" text-center mt-14 lg:mt-6  lg:text-1xl font-bold">
-                Payment Status: {regStatus === 'undefined'? 'Not Paid': 'Registered'}
+                Payment Status: {paymentStatus === 'undefined'? 'Not Paid': 'Paid'}
               </h2>
-              {regStatus === 'undefined'?
+              {paymentStatus === 'undefined'?
               <Link to = '/payment'>
               <button
                     className="block font-openSans bg-orange-base text-white w-48 mt-2 rounded-lg h-12 lg:h-12 mx-auto"

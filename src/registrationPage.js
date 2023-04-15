@@ -266,7 +266,7 @@ return (
                     required
                     onChange={(e)=> setImage(e.target.files[0])}
                   /> */}
-                  <button type="submit" disabled={regStatus === 'undefined'? false: true} value="submit" className="px-auto flex items-center mx-auto mt-5 px-28 w-72 bg-orange-base rounded-md h-8 my-auto text-white" onClick={(e)=> {upload(e); updateFunc(e)}}>SUBMIT</button>
+                  <button type="submit" disabled={regStatus === 'undefined'? false: true} value="submit" className="px-auto flex items-center mx-auto mt-5 px-28 w-72 bg-orange-base rounded-md h-8 my-auto text-white" onClick={(e)=> {upload(e); updateFunc(e, 'registration')}}>SUBMIT</button>
 
                 </form>
               </div> }

@@ -1,63 +1,111 @@
-import {React, useState} from 'react'
+import {React, useState, useEffect} from 'react'
 import { PaystackButton } from 'react-paystack'
 import styled from 'styled-components'
+import { auth } from "./firebase-config";
+import { ConsumerContext } from "./context";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { set, ref, update, onValue } from "firebase/database";
+import { db } from "./firebase-config";
 
 const Paystack =()=> {
 
     const publicKey = "pk_test_c77789432ebc6458f202f41e8e30e0971371909d"
   const amount = 1000000 // Remember, set in kobo!
-  const [email, setEmail] = useState("")
+  const [email, setEmail] = useState()
   const [name, setName] = useState("")
   const [phone, setPhone] = useState("")
+  // const [password, setPassword] = useState('')
+  
+  let userInFinal = ''
 
-    const componentProps = {
-        email,
-        amount,
-        metadata: {
-          name,
-          phone,
-        },
-        publicKey,
-        text: "Pay Now",
-        onSuccess: () =>
-          alert("Thanks for doing business with us! Come back soon!!"),
-        onClose: () => alert("Wait! You need this oil, don't go!!!!"),
-      }
+  useEffect(()=>{
+
+          onValue(ref(db), (snapshot) => {
+            const responseData = snapshot.val();
+            let allUsers = [];
+            console.log(responseData)
+  
+            for (const key in responseData) {
+              allUsers.push({
+                id: key,
+                name: responseData[key].name,
+                email: responseData[key].email,
+                password: responseData[key].password,
+                regStatus: responseData[key].regStatus,
+                phone: responseData[key].regPhoneNumber
+              });
+            }
+            const userIn = allUsers.filter((obj) => {
+              return obj.id === auth.currentUser.uid;
+            });
+            userInFinal = userIn[0];
+            console.log(userInFinal)
+            setEmail(()=>{
+              return (userInFinal.email)
+            })
+            setName(()=>{
+              return (userInFinal.name)
+            })
+            setPhone(()=>{
+              return (userInFinal.phone)
+            })
+            console.log(userInFinal.email)
+          })
+        
+      }, [])
+              // console.log(allUsers);
+ 
+              // if(alert())
+              console.log(alert)
+    // console.log(userInFinal)
+      
+// console.log(auth.currentUser.displayName)
+   
+   
   return (
     <>
-    <PaymentStyle>
-    <div className="checkout-form mt-20 mx-auto
+      <ConsumerContext>
+      {(value) => {
+          const {
+            paymentFunc
+          } = value;
+  const componentProps = {
+    email,
+    amount,
+    metadata: {
+      name,
+      phone,
+    },
+    publicKey,
+    text: "Pay Now",
+    onSuccess: ()=>{
+
+      alert("Thanks for doing business with us! Come back soon!!")
+      paymentFunc();
+
+      
+
+    },
+    onClose: () => alert("Wait! You need this oil, don't go!!!!"),
+  }
+  return (
+  <PaymentStyle>
+    <div className="checkout-form mx-auto
     ">
-  <div className="checkout-field">
-    <label>Name</label>
-    <input
-    className='focus:outline-none border-b-2 mx-auto h-10 text-gray w-72'
-      type="text"
-      id="name"
-      onChange={(e) => setName(e.target.value)}
-    />
-  </div>
-  <div className="checkout-field">
-    <label>Email</label>
-    <input
-    className='focus:outline-none border-b-2 mx-auto h-10 text-gray w-72'
-      type="text"
-      id="email"
-      onChange={(e) => setEmail(e.target.value)}
-    />
-  </div>
-  <div className="checkout-field">
-    <label>Phone</label>
-    <input
-    className='focus:outline-none border-b-2 mx-auto h-10 text-gray w-72'
-      type="text"
-      id="phone"
-      onChange={(e) => setPhone(e.target.value)}
-    />
-  </div>
-  <PaystackButton className="paystack-button mx-auto " {...componentProps} />
+ 
+      <h1 className="text-center font-medium font-openSans">You are about to be redirected to our payment portal</h1>
+  <PaystackButton onSuccess={()=> console.log('yes')} onClose={console.log('no')} className="block font-openSans bg-orange-base text-white w-48 mt-2 rounded-lg h-12 lg:h-12 mx-auto" {...componentProps} />
 </div>
       </PaymentStyle>
+)
+}
+}
+       </ConsumerContext>
     </>
   )
 }

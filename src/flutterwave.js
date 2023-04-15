@@ -56,3 +56,33 @@ justify-content: center;
 
 `;
 export default FlutterWave;
+ {/* <div className="checkout-field">
+    <label>Name</label>
+    <input
+    className='focus:outline-none border-b-2 mx-auto h-10 text-gray w-72'
+      type="text"
+      id="name"
+      value={name}
+      // onChange={(e) => setName(e.target.value)}
+      />
+  </div>
+  <div className="checkout-field">
+  <label>Email</label>
+  <input
+  className='focus:outline-none border-b-2 mx-auto h-10 text-gray w-72'
+  type="text"
+  id="email"
+      value={email}
+      // onChange={(e)=> setEmail(e.target.value)}
+    />
+    </div>
+    <div className="checkout-field">
+    <label>Phone</label>
+    <input
+    className='focus:outline-none border-b-2 mx-auto h-10 text-gray w-72'
+      type="text"
+      id="phone"
+      value={phone}
+      // onChange={(e)=> setPhone(e.target.value)}
+      />
+    </div> */}

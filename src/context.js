@@ -46,6 +46,7 @@ const ContextProvider = (props) => {
   // ----------------------------------------------------------
   const initialToken= localStorage.getItem("user");
   const regStatus = localStorage.getItem('regStatus');
+  const paymentStatus = localStorage.getItem('payment')
   
   // STATE FOR FORM DETAILS
   const [fullName, setFullName] = useState("");
@@ -148,6 +149,7 @@ const ContextProvider = (props) => {
     .then((response) => {
         onValue(ref(db), (snapshot) => {
           const responseData = snapshot.val();
+          console.log(responseData)
           let allUsers = [];
 
           for (const key in responseData) {
@@ -157,7 +159,8 @@ const ContextProvider = (props) => {
               email: responseData[key].email,
               password: responseData[key].password,
               // regData: responseData[key].regData,
-              regStatus: responseData[key].regStatus
+              regStatus: responseData[key].regStatus,
+              paymentStatus: responseData[key].paymentStatus
             });
 
             console.log(allUsers);
@@ -206,6 +209,8 @@ const ContextProvider = (props) => {
             // }
           localStorage.setItem('user',  auth.currentUser.displayName);
           localStorage.setItem('regStatus', userInFinal.regStatus)
+          localStorage.setItem('paymentStatus', userInFinal.paymentStatus)
+
           console.log(userInFinal.regStatus)
           auth.currentUser.phoneNumber = 
           // <Navigate to = '/main'/>
@@ -302,29 +307,23 @@ sendPasswordResetEmail(auth, email)
     // ..
   });
   }
-  const updateFunc = (e, urlRaw) => {
+  const updateFunc = (e, funcType) => {
     e.preventDefault();
+    if (funcType === 'registration'){
 
-    // const regData = {
-    //   // fullName,
-    //   // emailAdd1,
-    //   // emailAdd2,
-    //   // phoneNumber,
-    //   // regNumber,
-    //   // faculty,
-    //   // department,
-    //   // programme,
-    //   // sessOfEntry,
-    //   // sessOfGraduation,
-    //   // dateOfBirth,
-    //   // IDdoc: urlRaw,
-    //   RegStatus: true,
-    // };
-
-    update(ref(db, `/${auth.currentUser.uid}`), {
-      regStatus: true
-    });
+      update(ref(db, `/${auth.currentUser.uid}`), {
+        regStatus: true
+      });
+    }
+   
   };
+
+  const paymentFunc= ()=>{
+    update(ref(db, `/${auth.currentUser.uid}`), {
+      paymentStatus: true
+    });
+    console.log('payment')
+  }
   const topScroll = ()=>{
     window.scrollTo({
       top:0, left:0 , behavior: "smooth"
@@ -413,7 +412,8 @@ sendPasswordResetEmail(auth, email)
         handleCloseModal,
         handleOpenModal,
         resetPword,
-        
+        paymentFunc,
+        paymentStatus
         
       }}
     >
