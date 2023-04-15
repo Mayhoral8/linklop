@@ -46,7 +46,7 @@ const ContextProvider = (props) => {
   // ----------------------------------------------------------
   const initialToken= localStorage.getItem("user");
   const regStatus = localStorage.getItem('regStatus');
-  const paymentStatus = localStorage.getItem('payment')
+  const paymentStatus = localStorage.getItem('paymentStatus')
   
   // STATE FOR FORM DETAILS
   const [fullName, setFullName] = useState("");

@@ -29,6 +29,8 @@ const Dashboard = () => {
           const { initialToken, loadData, regStatus, setOpenModal, openModal, paymentStatus } = value;
           console.log(typeof true);
           console.log(regStatus)
+          console.log(paymentStatus)
+
             if(initialToken){
               return (
                 <>
