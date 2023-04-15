@@ -105,7 +105,7 @@ const Paystack =()=> {
     <div className="checkout-form mx-auto mt-56
     ">
  
-      <h1 className="text-center font-medium font-openSans text-sm lg:text-base font-bold">You are about to be redirected <br/> to our payment portal</h1>
+      <h1 className="text-center font-medium font-openSans lg:text-base font-bold">You are about to be redirected <br/> to our payment portal</h1>
   <PaystackButton onSuccess={()=> console.log('yes')} onClose={console.log('no')} className="block font-openSans bg-orange-base text-white w-48 mt-8 rounded-lg h-12 lg:h-12 mx-auto" {...componentProps} />
 </div>
       </PaymentStyle>
