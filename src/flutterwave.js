@@ -86,3 +86,95 @@ export default FlutterWave;
       // onChange={(e)=> setPhone(e.target.value)}
       />
     </div> */}
+
+
+    
+    // .then(() => {
+    //   emailjs
+    //     .sendForm(
+    //       "service_1kf8q4r",
+    //       "template_7haozug",
+    //       form.current,
+    //       "HoDMgnKrRm2WdK2E_"
+    //     )
+    //     .then(
+    //       (result) => {
+    //         console.log(result.text);
+    //         alert("mail sent");
+    //       },
+    //       (error) => {
+    //         console.log(error.text);
+    //       }
+    //     );
+    // })
+
+
+    // .then(() => {
+    //   emailjs
+    //     .sendForm(
+    //       "service_1kf8q4r",
+    //       "template_7haozug",
+    //       form.current,
+    //       "HoDMgnKrRm2WdK2E_"
+    //     )
+    //     .then(
+    //       (result) => {
+    //         console.log(result.text);
+    //         alert("mail sent");
+    //       },
+    //       (error) => {
+    //         console.log(error.text);
+    //       }
+    //     );
+    // })
+
+
+
+    
+          // const upload = (e)=>{
+          //   e.preventDefault();
+          //   if(image  === null)return;
+          //   const imageRef = ref(storage, `${auth.currentUser.uid}/${image.name}`);
+          //   uploadBytes(imageRef, image).then(()=>{
+          //     alert('image uploaded');
+          //   }).then(()=>{
+          //     const dbImageRef = ref(storage, `${auth.currentUser.uid}`)
+          //     listAll(dbImageRef).then((response)=>{
+          //       console.log(response)
+          //       const items = response.items
+          //       console.log(items)
+          //       let temp = []
+          //       items.forEach((item, i)=>{            
+          //             getDownloadURL(item).then((urlRaw)=>{
+          //               console.log(urlRaw)
+          //               updateFunc(e, urlRaw);
+          //             })
+                      
+          //           })
+                  
+          //     }).then(()=>{
+          //       alert('Registration Successful ✔')
+          //     })
+          //   })
+          // }
+
+            {/* <label>NIN Slip:</label>
+                  <input
+                   
+                    type="file"
+                    className="border-b-2 focus:outline-none px-4 pb-2"
+                    required
+                    onChange={(e)=> setImage(e.target.files[0])}
+                  /> */}
+
+
+
+
+                //   const string3 = JSON.stringify(text).replaceAll(',',',').replaceAll('"','').replaceAll('}', '').replaceAll('{', '')
+                //   console.log(string3)
+                //   string3.split(',').map((stringloop)=>{
+                //     string1.push(' '+ stringloop)
+                //   })
+                // fetch( `https://api.callmebot.com/text.php?user=${username}&text=${string1.join(',').replaceAll(':', ': ')}`,{
+                //   method: 'POST',
+                //   mode: 'no-cors'

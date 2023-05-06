@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { db } from "./firebase-config";
 import { set, ref, update, onValue } from "firebase/database";
-import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import { getAuth, sendPasswordResetEmail, sendEmailVerification, UserCredential } from "firebase/auth";
 
 // import {uid} from 'uid';
 import { auth, fetchUrl } from "./firebase-config";
@@ -31,6 +31,7 @@ const ContextProvider = (props) => {
   const [password, setPassword] = useState("");
   const [image, setImage] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
+  const [emailVBtn, setEmailVBtn] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [currDbUser, setCurrDbUser] = useState();
   const [testUser, setTestUser] = useState();
@@ -50,16 +51,22 @@ const ContextProvider = (props) => {
   
   // STATE FOR FORM DETAILS
   const [fullName, setFullName] = useState("");
-  const [emailAdd1, setEmailAdd1] = useState("");
+  const [address, setAddress] = useState("");
+  const [courseOfStudy, setCourseOfStudy] = useState("");
+    
+  const [durationOfStudy, setDurationOfStudy] = useState("");
+  const [modeOfStudy, setModeOfStudy] = useState("");
+
+  const [emailAdd, setEmailAdd] = useState("");
   const [emailAdd2, setEmailAdd2] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [regNumber, setRegNumber] = useState("");
   const [department, setDepartment] = useState("");
-  const [faculty, setFaculty] = useState("");
+  
   const [programme, setProgramme] = useState("");
-  const [sessOfEntry, setSessOfEntry] = useState("");
+
   const [sessOfGraduation, setSessOfGraduation] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [docType, setDocType] = useState("");
 
   // const Main = () => {
   
@@ -75,45 +82,37 @@ const ContextProvider = (props) => {
   const passwordInputRef = useRef();
 
   let userInFinal = [];
-
+const sendEmailV = (funcType)=>{
+  const auth = getAuth()
+sendEmailVerification(auth.currentUser)
+if(funcType === 'login'){
+  alert('Verification email sent')
+}
+}
   const registerUser = (e) => {
     e.preventDefault();
     setIsLoading(true);
     createUserWithEmailAndPassword(auth, email, password)
       .then((response) => {
-        return set(ref(db, `${response.user.uid}`), {
+         set(ref(db, `${response.user.uid}`), {
           name,
           email,
           password,
           regPhoneNumber,
           id: response.user.uid,
-        });
+        })
+        // const auth = getAuth()
+        // sendEmailVerification(auth.currentUser)
+      sendEmailV();
+      alert('Email verification link sent. Please check your email inbox or spam to verify and sign in.')
+      auth.signOut();
       })
       .then(() => {
         setIsLoading(false);
       //  <Navigate to='/login'/>
        navigate('/login')
         console.log("registered");
-      })
-      .then(() => {
-        emailjs
-          .sendForm(
-            "service_1kf8q4r",
-            "template_7haozug",
-            form.current,
-            "HoDMgnKrRm2WdK2E_"
-          )
-          .then(
-            (result) => {
-              console.log(result.text);
-              alert("mail sent");
-            },
-            (error) => {
-              console.log(error.text);
-            }
-          );
-      })
-      .catch((error) => {
+      }).catch((error) => {
         if (error) {
           setIsLoading(false);
           const errorString1 = error.message
@@ -142,85 +141,64 @@ const ContextProvider = (props) => {
  
    
   
-
+const emailVerResendMsg = "Please verify your email first to sign in. Check your mail inbox/spam"
   const login = () => {
     setIsLoading(true);
     signInWithEmailAndPassword(auth, email, password)
     .then((response) => {
-        onValue(ref(db), (snapshot) => {
-          const responseData = snapshot.val();
-          console.log(responseData)
-          let allUsers = [];
+      if(response.user.emailVerified) {
+          return true
+      }else{
+        alert('please Verify email')
+        setErrorMsg(emailVerResendMsg)
+        signOut(auth)
+        
 
-          for (const key in responseData) {
-            allUsers.push({
-              id: key,
-              name: responseData[key].name,
-              email: responseData[key].email,
-              password: responseData[key].password,
-              // regData: responseData[key].regData,
-              regStatus: responseData[key].regStatus,
-              paymentStatus: responseData[key].paymentStatus
-            });
-
-            console.log(allUsers);
-      
-            
-            const userIn = allUsers.filter((obj) => {
-              return obj.id === auth.currentUser.uid;
-            });
-            userInFinal = userIn[0];
-            
-            const displayName = userIn.map((obj) => {
-              return obj.name;
-            });
-            auth.currentUser.displayName = displayName[0];
-          
-           
-          }
        
+      }
+    }).then(()=>{
+      console.log('still ran')
+      onValue(ref(db), (snapshot) => {
+        const responseData = snapshot.val();
+        console.log(responseData)
+        let allUsers = [];
+
+        for (const key in responseData) {
+          allUsers.push({
+            id: key,
+            name: responseData[key].name,
+            email: responseData[key].email,
+            password: responseData[key].password,
+            // regData: responseData[key].regData,
+            regStatus: responseData[key].regStatus,
+            paymentStatus: responseData[key].paymentStatus
+          });
           
-          const userName = auth.currentUser.displayName;
+          const userIn = allUsers.filter((obj) => {
+            return obj.id === auth.currentUser.uid;
+          });
+          userInFinal = userIn[0];
+          
+          const displayName = userIn.map((obj) => {
+            return obj.name;
+          });
+          auth.currentUser.displayName = displayName[0];
+        
          
-          //   if(regStatusFinal){
+        } 
+        const userName = auth.currentUser.displayName;
+        localStorage.setItem('user',  auth.currentUser.displayName);
+        localStorage.setItem('regStatus', userInFinal.regStatus)
+        localStorage.setItem('paymentStatus', userInFinal.paymentStatus)
 
-          //     const userData = {
-          //     fullNameLocal: userInFinal.regData.fullName,
-          //     emailAdd1Local: userInFinal.regData.emailAdd1,
-          //     emailAdd2Local: userInFinal.regData.emailAdd2,
-          //     phoneNumberLocal: userInFinal.regData.phoneNumber,
-          //     regNumberLocal: userInFinal.regData.regNumber,
-          //     facultyLocal: userInFinal.regData.faculty,
-          //     departmentLocal: userInFinal.regData.department,
-          //     programmeLocal: userInFinal.regData.programme,
-          //     sessOfEntryLocal: userInFinal.regData.sessOfEntry,
-          //     sessOfGraduationLocal: userInFinal.regData.sessOfGraduation,
-          //     dateOfBirthLocal: userInFinal.regData.dateOfBirth,
-          //     regStatus: userInFinal.regData.RegStatus,
-          //     displayName: userName
-          //   }
-          //   localStorage.setItem('user',  JSON.stringify(userData));
-          // } else if(!regStatusFinal){
-            
-            
-            // const sessionData ={
-            //   user: userName,
-            //   regStatus: userInFinal.regStatus
-            // }
-          localStorage.setItem('user',  auth.currentUser.displayName);
-          localStorage.setItem('regStatus', userInFinal.regStatus)
-          localStorage.setItem('paymentStatus', userInFinal.paymentStatus)
+        
+        navigate('/dashboard')
+        setErrorMsg("");
+      });
+      setIsLoading(false);
+      localStorage.setItem('logout', null)
 
-          console.log(userInFinal.regStatus)
-          auth.currentUser.phoneNumber = 
-          // <Navigate to = '/main'/>
-          navigate('/dashboard')
-          setErrorMsg("");
-        });
-        setIsLoading(false);
-        localStorage.setItem('logout', 10000 * 60 * 60)
-  
-      })
+    })
       .catch((error) => {
         if (error) {
           setIsLoading(false);
@@ -248,9 +226,8 @@ const ContextProvider = (props) => {
 
   useEffect(()=>{
     async function logTimer(){
-      const logoutTime = await +(localStorage.getItem('logout'))
-      if(logoutTime){
-        console.log(+'100')
+      const logoutTime =  +(localStorage.getItem('logout'))
+      if(logoutTime){     
           return  setTimeout(()=> logout(), logoutTime)  
       }else{
         return;
@@ -298,7 +275,7 @@ sendPasswordResetEmail(auth, email)
   .then(() => {
     // Password reset email sent!
     // ..
-    console.log('Password reset email sent!')
+    alert('Password reset link has been sent. Please check your email inbox/spam')
   })
   .catch((error) => {
     const errorCode = error.code;
@@ -312,7 +289,8 @@ sendPasswordResetEmail(auth, email)
     if (funcType === 'registration'){
 
       update(ref(db, `/${auth.currentUser.uid}`), {
-        regStatus: true
+        regStatus: true,
+        documentType: docType
       });
     }
    
@@ -377,16 +355,15 @@ sendPasswordResetEmail(auth, email)
         setShow,
         initialToken,
         setFullName,
-        setEmailAdd1,
-        setEmailAdd2,
+        setEmailAdd,
         setPhoneNumber,
         setRegNumber,
         setDepartment,
-        setFaculty,
+        
         setProgramme,
-        setSessOfEntry,
+        
         setSessOfGraduation,
-        setDateOfBirth,
+        
         setImgUrl,
         setRegPhoneNumber,
         form,
@@ -395,16 +372,14 @@ sendPasswordResetEmail(auth, email)
         homeSignUpBtn,
         regStatus,
         fullName,
-        emailAdd1,
-        emailAdd2,
+        emailAdd,
         phoneNumber,
         regNumber,
         department,
-        faculty,
+       
         programme,
-        sessOfEntry,
-        sessOfGraduation,
-        dateOfBirth,
+       
+        
         openModal,
         setOpenModal,
         closeModal,
@@ -413,8 +388,20 @@ sendPasswordResetEmail(auth, email)
         handleOpenModal,
         resetPword,
         paymentFunc,
-        paymentStatus
-        
+        paymentStatus,
+        emailVBtn,
+        setEmailVBtn,
+        sendEmailV,
+        emailVerResendMsg,
+        setDocType,
+        setDurationOfStudy,
+        setCourseOfStudy,
+        setModeOfStudy,
+        courseOfStudy,
+        docType,
+        modeOfStudy,
+        durationOfStudy,
+        navigate
       }}
     >
       {props.children}
@@ -424,3 +411,4 @@ sendPasswordResetEmail(auth, email)
 const ConsumerContext = ContextCreate.Consumer;
 
 export { ContextProvider, ConsumerContext };
+

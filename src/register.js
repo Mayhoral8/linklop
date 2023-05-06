@@ -49,7 +49,7 @@ const Register = () => {
                   ) : null}
                 </span>
                 <div className="">
-                  <form ref={form} onSubmit={sendEmail}>
+                  <form  onSubmit={sendEmail}>
                     <div className=" font-openSans mx-auto w-72 mt-6 grid grid-cols-2 h-52 ">
                       <div className="grid grid-cols-1 text-sm text-gray-900">
                         <input

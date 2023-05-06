@@ -11,17 +11,22 @@ import {
 } from "firebase/auth";
 import { set, ref, update, onValue } from "firebase/database";
 import { db } from "./firebase-config";
+import { Navigate } from 'react-router-dom';
+import { getAuth } from 'firebase/auth';
 
 const Paystack =()=> {
 
     const publicKey = "pk_test_c77789432ebc6458f202f41e8e30e0971371909d"
-  const amount = 1000000 // Remember, set in kobo!
+  // const amount = 1000000 // Remember, set in kobo!
   const [email, setEmail] = useState()
   const [name, setName] = useState("")
   const [phone, setPhone] = useState("")
+  const [amount, setAmount] = useState("")
   // const [password, setPassword] = useState('')
   
   let userInFinal = ''
+const auth = getAuth(); 
+const user = auth.currentUser;
 
   useEffect(()=>{
 
@@ -37,7 +42,8 @@ const Paystack =()=> {
                 email: responseData[key].email,
                 password: responseData[key].password,
                 regStatus: responseData[key].regStatus,
-                phone: responseData[key].regPhoneNumber
+                phone: responseData[key].regPhoneNumber,
+                documentType: responseData[key].documentType
               });
             }
             const userIn = allUsers.filter((obj) => {
@@ -54,7 +60,15 @@ const Paystack =()=> {
             setPhone(()=>{
               return (userInFinal.phone)
             })
-            console.log(userInFinal.email)
+            setAmount(()=>{
+              if (userInFinal.documentType === 'Transcript'){
+                return ('500000')
+              } else if (userInFinal.documentType === 'Certificate'){
+                return ('400000')
+              } else if (userInFinal.documentType === 'English Proficiency letter'){
+                return ('600000')
+              } 
+            })
           })
         
       }, [])
@@ -72,7 +86,8 @@ const Paystack =()=> {
       <ConsumerContext>
       {(value) => {
           const {
-            paymentFunc
+            paymentFunc,
+            initialToken
           } = value;
   const componentProps = {
     email,
@@ -93,6 +108,8 @@ const Paystack =()=> {
     },
     onClose: () => alert("Are you sure you want to cancel?"),
   }
+  if(user){
+
   return (
     <>
     <div className=" bg-blue-base h-72 font-openSans mx-auto lg:mt-20 block">
@@ -105,13 +122,16 @@ const Paystack =()=> {
     <div className="checkout-form mx-auto mt-56
     ">
  
-      <h1 className="text-center font-medium font-openSans lg:text-base font-bold">You are about to be redirected <br/> to our payment portal</h1>
+      <h1 className="text-center font-medium font-openSans mt-10 lg:text-base font-bold">You are about to be redirected <br/> to our payment portal</h1>
   <PaystackButton onSuccess={()=> console.log('yes')} onClose={console.log('no')} className="block font-openSans bg-orange-base text-white w-48 mt-8 rounded-lg h-12 lg:h-12 mx-auto" {...componentProps} />
 </div>
       </PaymentStyle>
     </>
 )
+} else{
+  return <Navigate to = '/login'/>
 }
+      }
 }
        </ConsumerContext>
     </>

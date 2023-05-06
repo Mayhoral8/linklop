@@ -16,17 +16,20 @@ import { storage } from "./firebase-config";
 import FlutterWave from "./flutterwave";
 import { useFlutterwave } from "flutterwave-react-v3";
 import Footer from "./footer";
+import { getAuth } from "firebase/auth";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const back = ()=>{
     navigate('/login')
   }
+  const auth = getAuth()
+  console.log(auth.currentUser)
   return (
     <>
       <ConsumerContext>
         {(value) => {
-          const { initialToken, loadData, regStatus, setOpenModal, openModal, paymentStatus } = value;
+          const { initialToken, initialToken2, loadData, regStatus, setOpenModal, openModal, paymentStatus } = value;
           console.log(typeof true);
           console.log(regStatus)
           console.log(paymentStatus)
