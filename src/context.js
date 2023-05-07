@@ -355,6 +355,8 @@ sendPasswordResetEmail(auth, email)
     update(ref(db, `/${auth.currentUser.uid}`), {
       paymentStatus: true
     });
+    localStorage.setItem("paymentStatus", true);
+
     console.log('payment')
    
   }
