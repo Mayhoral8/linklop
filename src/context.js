@@ -56,7 +56,7 @@ const ContextProvider = (props) => {
     
   const [durationOfStudy, setDurationOfStudy] = useState("");
   const [modeOfStudy, setModeOfStudy] = useState("");
-
+const [faculty, setFaculty] = useState('')
   const [emailAdd, setEmailAdd] = useState("");
   const [emailAdd2, setEmailAdd2] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -298,7 +298,11 @@ sendPasswordResetEmail(auth, email)
             courseOfStudy !== "" &&
             phoneNumber !== "" &&
             regNumber !== "" &&
-            department !== "" 
+            faculty !== ""  &&
+            modeOfStudy !== '' &&
+            durationOfStudy !== '' &&
+            programme !== '' &&
+            docType !== ''
           ) {
             setIsLoading(true)
             emailjs
@@ -323,8 +327,9 @@ sendPasswordResetEmail(auth, email)
                 localStorage.setItem("regStatus", true);
                  
               }).then(()=>{
-                setIsLoading(false)
-                  navigate('/registration')
+                setIsLoading(false);
+                  navigate('/registration');
+                  topScroll();
               })
               .then(() => {
                 setOpenModal(() => {
@@ -452,7 +457,8 @@ sendPasswordResetEmail(auth, email)
         docType,
         modeOfStudy,
         durationOfStudy,
-        navigate
+        navigate,
+        setFaculty
       }}
     >
       {props.children}

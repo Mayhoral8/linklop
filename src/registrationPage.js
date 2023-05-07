@@ -31,7 +31,7 @@ const RegistrationPage = () => {
           setProgramme,
           setDocType,
 
-          
+          setFaculty,
           form,
           
           openModal,
@@ -39,7 +39,7 @@ const RegistrationPage = () => {
           setCourseOfStudy,
           setModeOfStudy,
           setEmailAdd,
-          
+          docType
         } = value;
        
         if (initialToken) {
@@ -66,7 +66,7 @@ const RegistrationPage = () => {
                       <span className="text-red">*</span>
                     </div>
                     <input
-                      name="full_name"
+                      name="user_name"
                       placeholder="name"
                       type="text"
                       className="border rounded-md border-gray focus:outline-none px-4 py-2 pb-2"
@@ -132,16 +132,16 @@ const RegistrationPage = () => {
                     />
 
                     <div>
-                      <label>Department</label>
+                      <label>Faculty</label>
                       <span className="text-red">*</span>
                     </div>
                     <input
-                      name="Dept"
-                      placeholder="Department"
+                      name="faculty"
+                      placeholder="Faculty"
                       type="text"
                       className="border rounded-md focus:outline-none py-2  px-4 pb-2"
                       required
-                      onChange={(e) => setDepartment(e.target.value)}
+                      onChange={(e) => setFaculty(e.target.value)}
                     />
                     <div>
                       <label>Mode of study:</label>{" "}
@@ -153,6 +153,7 @@ const RegistrationPage = () => {
                       required
                       onChange={(e) => setModeOfStudy(e.target.value)}
                     >
+                      <option value="">---Please select an option---</option>
                       <option value="Regular">Regular</option>
                       <option value="Special">Special</option>
                     </select>
@@ -166,6 +167,7 @@ const RegistrationPage = () => {
                       required
                       onChange={(e) => setDurationOfStudy(e.target.value)}
                     >
+                      <option value="">---Please select an option---</option>
                       <option value="4 years">4 years</option>
                       <option value="5 years">5 years</option>
                       <option value="6 years">6 years</option>
@@ -181,6 +183,7 @@ const RegistrationPage = () => {
                       required
                       onChange={(e) => setProgramme(e.target.value)}
                     >
+                      <option value="">---Please select an option---</option>
                       <option value="Regular">Regular</option>
                       <option value="Special">Special</option>
                     </select>
@@ -194,8 +197,9 @@ const RegistrationPage = () => {
                       id=""
                       className="border py-2 px-4 pb-2"
                       required
-                      onChange={(e) => setDocType(e.target.value)}
+                      onChange={(e) => {setDocType(e.target.value); console.log(docType)}}
                     >
+                      <option value="">---Please select an option---</option>
                       <option value="Transcript">Transcript-#5000</option>
                       <option value="Certificate">Certificate-#4000</option>
                       <option value="English Proficiency letter">

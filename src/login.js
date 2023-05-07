@@ -34,14 +34,8 @@ const Login = () => {
             setPassword(passwordInputRef.current.value);
             console.log(email);
           };
-        // if(initialToken){
-        //   return <Navigate to = '/main'/>
-        // }
-        // if(isLoading === true){
-        //   return (<button type="button" class="bg-indigo-500 ..." disabled>
-        //   Loading...
-        // </button>)
-        // }
+       
+       
         if(!initialToken){
 
           return (
@@ -54,7 +48,6 @@ const Login = () => {
               <h2 className="text-center text-red font-bold">{errorMsg}</h2>
               
        
-             { errorMsg === emailVerResendMsg ? <button onClick={()=> sendEmailV('login')} className="px-auto font-openSans flex items-center mx-auto mt-5 px-12 w-72 bg-orange-base rounded-md h-8 my-auto text-white">Resend verification email</button>: null}
             
                 <div className=" mx-auto w-72 mt-10 h-44 font-openSans">
                   <div className="grid grid-rows-2  gap-y-10 text-sm">

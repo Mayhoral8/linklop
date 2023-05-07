@@ -1,8 +1,6 @@
 import React from "react";
 import { useEffect } from "react";
-// import { Link } from 'react-router-dom'
 import UNIZIK from "./img/UNIZIK2.png";
-// import Payment from "./img/Payment.png";
 import Payment1 from "./img/Payment1.jpg";
 import documentUpload from './img/documentUpload.png';
 import Register1 from "./img/Register1.jpg";
