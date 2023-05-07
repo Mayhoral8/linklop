@@ -27,6 +27,8 @@ const Paystack =()=> {
   let userInFinal = ''
 const auth = getAuth(); 
 const user = auth.currentUser;
+const regStatus = localStorage.getItem('regStatus');
+
 
   useEffect(()=>{
 
@@ -71,7 +73,7 @@ const user = auth.currentUser;
             })
           })
         
-      }, [])
+      }, [regStatus])
               // console.log(allUsers);
  
               // if(alert())
@@ -81,6 +83,7 @@ const user = auth.currentUser;
 // console.log(auth.currentUser.displayName)
    
    
+
   return (
     <>
       <ConsumerContext>
@@ -108,7 +111,7 @@ const user = auth.currentUser;
     },
     onClose: () => alert("Are you sure you want to cancel?"),
   }
-  if(user){
+  if(initialToken){
 
   return (
     <>
@@ -137,6 +140,7 @@ const user = auth.currentUser;
     </>
   )
 }
+
 const PaymentStyle = styled.div`
 position: fixed;
 top: 0;

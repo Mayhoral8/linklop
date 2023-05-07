@@ -68,7 +68,9 @@ const ContextProvider = (props) => {
   const [sessOfGraduation, setSessOfGraduation] = useState("");
   const [docType, setDocType] = useState("");
 
-  // const Main = () => {
+  useEffect(()=>{
+   
+}, [regStatus, paymentStatus])
   
   // EMAIL FUNCTION
 
@@ -236,10 +238,13 @@ const emailVerResendMsg = "Please verify your email first to sign in. Check your
     logTimer()
     }, [initialToken])
  
+
   const logout = async (pop) => {
     await signOut(auth);
     localStorage.removeItem("user");
     localStorage.removeItem("logout");
+    localStorage.removeItem("regStatus")
+    localStorage.removeItem("paymentStatus")
 
     // console.log(auth.currentUser.displayName)
     setErrorMsg("");
@@ -284,16 +289,61 @@ sendPasswordResetEmail(auth, email)
     // ..
   });
   }
-  const updateFunc = (e, funcType) => {
-    e.preventDefault();
-    if (funcType === 'registration'){
+  const updateFunc = (e) => {
+    e.preventDefault();   
+  
+          if (
+            fullName !== "" &&
+            emailAdd !== "" &&
+            courseOfStudy !== "" &&
+            phoneNumber !== "" &&
+            regNumber !== "" &&
+            department !== "" 
+          ) {
+            setIsLoading(true)
+            emailjs
+              .sendForm(
+                "service_1kf8q4r",
+                "template_7haozug",
+                form.current,
+                "HoDMgnKrRm2WdK2E_"
+              )
+              .then(
+                (result) => {
+                  console.log(result.text);
+                },
+                (error) => {
+                  console.log(error.text);
+                }
+              ).then(()=>{
+                update(ref(db, `/${auth.currentUser.uid}`), {
+                  regStatus: true,
+                  documentType: docType
+                });
+                localStorage.setItem("regStatus", true);
+                 
+              }).then(()=>{
+                setIsLoading(false)
+                  navigate('/registration')
+              })
+              .then(() => {
+                setOpenModal(() => {
+                  return true;
+                })}).then(()=>{
+                  setFullName('')
+                  setEmailAdd('')
+                  setPhoneNumber('')
+                  setDepartment('')
+                  setCourseOfStudy('')
+                  setRegNumber('')
+                })
+                
+              
+          } else {
+            alert("Please Fill Out All Fields");
+          }
+       
 
-      update(ref(db, `/${auth.currentUser.uid}`), {
-        regStatus: true,
-        documentType: docType
-      });
-    }
-   
   };
 
   const paymentFunc= ()=>{
@@ -301,6 +351,7 @@ sendPasswordResetEmail(auth, email)
       paymentStatus: true
     });
     console.log('payment')
+   
   }
   const topScroll = ()=>{
     window.scrollTo({

@@ -20,9 +20,7 @@ import { getAuth } from "firebase/auth";
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const back = ()=>{
-    navigate('/login')
-  }
+ 
   const auth = getAuth()
   console.log(auth.currentUser)
   return (

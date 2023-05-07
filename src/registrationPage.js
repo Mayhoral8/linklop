@@ -17,17 +17,12 @@ const RegistrationPage = () => {
       {(value) => {
         const {
           isLoading,
-          navigate,
+          
           updateFunc,
           initialToken,
-          logout,
-          ref1,
-          setImagesetFullName,
-          setImage,
-          image,
+          
           regStatus,
-          setEmailAdd1,
-          setEmailAdd2,
+          
           setPhoneNumber,
           setRegNumber,
           setDepartment,
@@ -36,65 +31,17 @@ const RegistrationPage = () => {
           setProgramme,
           setDocType,
 
-          fullName,
-          emailAdd,
-          phoneNumber,
-          regNumber,
-          department,
-          faculty,
-          programme,
-          dateOfBirth,
+          
           form,
-          setCloseModal,
-          setOpenModal,
-          closeModal,
+          
           openModal,
           setDurationOfStudy,
           setCourseOfStudy,
           setModeOfStudy,
           setEmailAdd,
-          courseOfStudy,
-          docType,
-          modeOfStudy,
-          durationOfStudy,
+          
         } = value;
-        const upload = (e) => {
-          e.preventDefault();
-          if (
-            fullName !== "" &&
-            emailAdd !== "" &&
-            courseOfStudy !== "" &&
-            phoneNumber !== "" &&
-            regNumber !== "" &&
-            department !== "" &&
-            dateOfBirth !== ""
-          ) {
-            emailjs
-              .sendForm(
-                "service_1kf8q4r",
-                "template_7haozug",
-                form.current,
-                "HoDMgnKrRm2WdK2E_"
-              )
-              .then(
-                (result) => {
-                  console.log(result.text);
-                },
-                (error) => {
-                  console.log(error.text);
-                }
-              )
-              .then(() => {
-                setOpenModal(() => {
-                  localStorage.setItem("regStatus", true);
-                  return true;
-                })})
-              
-          } else {
-            alert("Please Fill Out All Fields");
-          }
-        };
-
+       
         if (initialToken) {
           return (
             <>
@@ -113,9 +60,6 @@ const RegistrationPage = () => {
                   <form
                     ref={form}
                     className=" grid gap-y-6 mt-14  text-sm mx-auto"
-                    name="myForm"
-                    action="/action_page.php"
-                    method="post"
                   >
                     <div>
                       <label>Full Name (As in official documents)</label>
@@ -260,20 +204,16 @@ const RegistrationPage = () => {
                     </select>
 
                     <button
-                      type="submit"
+                     
                       disabled={regStatus === "undefined" ? false : true}
-                      value="submit"
+                      type="submit"
                       className="px-auto flex items-center mx-auto mt-5 px-28 w-72 bg-orange-base rounded-md h-8 my-auto text-white"
                       onClick={(e) => {
-                        upload(e);
-                        updateFunc(e, "registration");
+                        
+                        updateFunc(e);
                       }}
                     >
-                      {isLoading ? (
-                        <i className="fas fa-spinner animate-spin" />
-                      ) : (
-                        "Submit"
-                      )}
+                      {isLoading ?<i className="fas mx-auto text-center fa-spinner animate-spin"/>  : 'Submit'}
                     </button>
                   </form>
                 </div>
@@ -284,7 +224,7 @@ const RegistrationPage = () => {
                     to get in touch with our representative <br /> and complete
                     your registration before <br /> making payments
                   </h2>
-                  <a href="www.livescores.com">
+                  <a href="https://chatwith.io/s/transcert" target= "_blank">
                     <img
                       src={whatsappIcon}
                       className="mx-auto lg:mt-20 mt-10 lg:w-64 lg:h-64 w-48 h-48 animate-pulse"
