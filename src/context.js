@@ -198,7 +198,7 @@ const emailVerResendMsg = "Please verify your email first to sign in. Check your
         setErrorMsg("");
       });
       setIsLoading(false);
-      localStorage.setItem('logout', null)
+      localStorage.setItem('logout', 20000)
 
     })
       .catch((error) => {

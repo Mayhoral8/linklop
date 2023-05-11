@@ -5,13 +5,13 @@ import {getStorage, ref} from 'firebase/storage';
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAffoWtDMvBln2P10Gy2gynGivKPXTYeGU",
-  authDomain: "crud-pr-c430e.firebaseapp.com",
-  databaseURL: "https://crud-pr-c430e-default-rtdb.firebaseio.com",
-  projectId: "crud-pr-c430e",
-  storageBucket: "crud-pr-c430e.appspot.com",
-  messagingSenderId: "475785206028",
-  appId: "1:475785206028:web:b5a81e409e80ffdb82d129"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID
 };
 
 
