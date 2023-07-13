@@ -70,7 +70,7 @@ const Navbar = () => {
                 <div
                   className={` ${
                     show ? "hidden" : "block"
-                  } lg:grid lg:grid-flow-col text-end   text-center text-white lg:text-gray`}
+                  } lg:grid lg:grid-flow-col text-center   text-center text-white lg:text-gray`}
                 >
                   <div
                     className={`${
