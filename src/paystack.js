@@ -22,12 +22,18 @@ const Paystack =()=> {
   const [name, setName] = useState("")
   const [phone, setPhone] = useState("")
   const [amount, setAmount] = useState("")
+  const [openModal, setOpenModal] = useState(false)
+
   // const [password, setPassword] = useState('')
   
   let userInFinal = ''
 const auth = getAuth(); 
 const user = auth.currentUser;
 const regStatus = localStorage.getItem('regStatus');
+
+
+
+
 
 
   useEffect(()=>{
@@ -45,14 +51,15 @@ const regStatus = localStorage.getItem('regStatus');
                 password: responseData[key].password,
                 regStatus: responseData[key].regStatus,
                 phone: responseData[key].regPhoneNumber,
-                documentType: responseData[key].documentType
+                amount: responseData[key].amount
               });
             }
             const userIn = allUsers.filter((obj) => {
               return obj.id === auth.currentUser.uid;
             });
             userInFinal = userIn[0];
-            console.log(userInFinal)
+          
+
             setEmail(()=>{
               return (userInFinal.email)
             })
@@ -63,25 +70,17 @@ const regStatus = localStorage.getItem('regStatus');
               return (userInFinal.phone)
             })
             setAmount(()=>{
-              if (userInFinal.documentType === 'Transcript'){
-                return ('500000')
-              } else if (userInFinal.documentType === 'Certificate'){
-                return ('400000')
-              } else if (userInFinal.documentType === 'English Proficiency letter'){
-                return ('600000')
+              if (userInFinal.amount === 'undefined'){
+                alert('you have not yet been cleared for payment')
+                return ''
+              } else{
+                return userInFinal.amount
               } 
             })
           })
         
       }, [regStatus])
-              // console.log(allUsers);
- 
-              // if(alert())
-              console.log(alert)
-    // console.log(userInFinal)
-      
-// console.log(auth.currentUser.displayName)
-   
+            
    
 
   return (
@@ -110,6 +109,7 @@ const regStatus = localStorage.getItem('regStatus');
 
     },
     onClose: () => alert("Are you sure you want to cancel?"),
+    onerror: ()=> console.log('error')
   }
   if(initialToken){
 
@@ -125,8 +125,8 @@ const regStatus = localStorage.getItem('regStatus');
     <div className="checkout-form mx-auto mt-56
     ">
  
-      <h1 className="text-center font-medium font-openSans mt-10 lg:text-base font-bold">You are about to be redirected <br/> to our payment portal</h1>
-  <PaystackButton onSuccess={()=> console.log('yes')} onClose={console.log('no')} className="block font-openSans bg-orange-base text-white w-48 mt-8 rounded-lg h-12 lg:h-12 mx-auto" {...componentProps} />
+      <h1 className="text-center font-medium font-openSans mt-20 lg:text-base font-bold">You are about to be redirected <br/> to our payment portal</h1>
+  <PaystackButton onSuccess={()=> console.log('yes')} onClose={console.log('no')}  className={`block font-openSans bg-orange-base text-white w-48 mt-8 rounded-lg h-12 lg:h-12 mx-auto`} {...componentProps} />
 </div>
       </PaymentStyle>
     </>
@@ -140,6 +140,7 @@ const regStatus = localStorage.getItem('regStatus');
     </>
   )
 }
+
 
 const PaymentStyle = styled.div`
 position: fixed;

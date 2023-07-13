@@ -15,18 +15,16 @@ const Login = () => {
           const {
             setPassword,
             setEmail,
+            setErrorMsg,
             emailInputRef,
             passwordInputRef,
             email,
-            currUser,
-            login,
+            loginHandler,
             errorMsg,
             isLoading,
-            initialToken,
+            token,
             resetPword,
-            sendEmailV,
-        emailVerResendMsg
-
+        
           } = value;
 
           const handleInputs = () => {
@@ -35,8 +33,11 @@ const Login = () => {
             console.log(email);
           };
        
+          const resetErrMsg = ()=>{
+            setErrorMsg('')
+          }
        
-        if(!initialToken){
+        if(!token){
 
           return (
             <>
@@ -71,14 +72,14 @@ const Login = () => {
                   </div>
                 </div>
                 
-                  <button className="px-auto font-openSans flex items-center mx-auto mt-5 px-32 w-72 bg-orange-base rounded-md h-8 my-auto text-white" disabled={isLoading? true:false} onClick={()=> login()}>{isLoading ?<i className="fas fa-spinner animate-spin"/>  : 'Login'}</button>
+                  <button className="px-auto font-openSans flex items-center mx-auto mt-5 px-32 w-72 bg-orange-base rounded-md h-8 my-auto text-white" disabled={isLoading? true:false} onClick={()=> loginHandler()}>{isLoading ?<i className="fas fa-spinner animate-spin"/>  : 'Login'}</button>
                 
               {errorMsg === 'Wrong Password'?  
-              <h2 className="text-center text-sm mt-4 cursor" onClick={()=> resetPword()}>Forgot Password?</h2>: null }
+              (<div className="grid grid-cols-2 gap-x-2 text-sm mt-4"><h2 className="text-right text-red-400  " >Forgot Password?</h2> <span className="cursor-pointer text-orange-base" onClick={()=> resetPword()}>Click here to reset it</span></div>): null }
               <div className=" flex font-openSans flex-row text-center justify-center w-64 mx-auto pb-2 mt-4 text-sm">
               <h6 className="w-40">Don't have an account?</h6> 
               <Link to ='/signup'>
-                <p className="text-sm text-orange-base w-18 block mx-auto text-center">
+                <p className="text-sm text-orange-base w-18 block mx-auto text-center" onClick={resetErrMsg}>
                   Sign Up
                 </p>
               </Link>

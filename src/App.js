@@ -6,8 +6,7 @@ import Register from "./register";
 import Navbar from "./navbar";
 import Home from "./home";
 import RegistrationPage from "./registrationPage";
-import FlutterWave from "./flutterwave";
-import Footer from "./footer";
+import LoadingOverlay from "./spinner";
 import Paystack from "./paystack";
 import { ConsumerContext } from "./context";
 const App = () => {
@@ -27,6 +26,7 @@ const App = () => {
           return (
             <>
               <Navbar />
+              <LoadingOverlay/>
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/dashboard" element={<Dashboard />} />
@@ -36,7 +36,6 @@ const App = () => {
                 <Route path="/signUp" element={<Register />} />
                 <Route path="/payment" element={<Paystack />} />
                 <Route path="/paystack" element={<Paystack />} />
-
               </Routes>
             </>
           );

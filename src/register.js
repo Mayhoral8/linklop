@@ -25,10 +25,10 @@ const Register = () => {
             setRegPhoneNumber,
             form,
             sendEmail,
-            initialToken
+            token
           } = value;
 
-          if(!initialToken){
+          if(!token){
           return (
             <>
              <div className="mt-24">

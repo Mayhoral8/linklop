@@ -1,14 +1,13 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { db } from "./firebase-config";
 import { set, ref, update, onValue } from "firebase/database";
-import { getAuth, sendPasswordResetEmail, sendEmailVerification, UserCredential } from "firebase/auth";
+import { getAuth, sendPasswordResetEmail, sendEmailVerification, updateProfile } from "firebase/auth";
 
 // import {uid} from 'uid';
-import { auth, fetchUrl } from "./firebase-config";
-import { useNavigate, Navigate } from "react-router";
+import { auth } from "./firebase-config";
+import { useNavigate } from "react-router";
 import {
   createUserWithEmailAndPassword,
-  onAuthStateChanged,
   signOut,
   signInWithEmailAndPassword,
 } from "firebase/auth";
@@ -17,15 +16,15 @@ import emailjs from "@emailjs/browser";
 import Aos from "aos";
 import "aos/dist/aos.css";
 
-const ContextCreate = React.createContext();
+export const ContextCreate = React.createContext();
 
 const ContextProvider = (props) => {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
-  const [dataStatus, setDataStatus] = useState(false);
+  const [regStatus, setRegStatus] = useState("");
+  const [paymentStatus, setPaymentStatus] = useState(false);
   const [currUser, setCurrUser] = useState();
   const ref1 = useRef();
-  const [status, setStatus] = useState("");
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -41,13 +40,14 @@ const ContextProvider = (props) => {
   const [regPhoneNumber, setRegPhoneNumber] = useState("");
   const [openModal, setOpenModal] = useState(false)
   const [closeModal, setCloseModal] = useState(false)
+  const [token, setToken] = useState()
+  const [tokenExpirationTime, setTokenExpirationTime] = useState(null)
 
   const form = useRef();
 
   // ----------------------------------------------------------
-  const initialToken= localStorage.getItem("user");
-  const regStatus = localStorage.getItem('regStatus');
-  const paymentStatus = localStorage.getItem('paymentStatus')
+
+ 
   
   // STATE FOR FORM DETAILS
   const [fullName, setFullName] = useState("");
@@ -68,9 +68,7 @@ const [faculty, setFaculty] = useState('')
   const [sessOfGraduation, setSessOfGraduation] = useState("");
   const [docType, setDocType] = useState("");
 
-  useEffect(()=>{
-   
-}, [regStatus, paymentStatus])
+
   
   // EMAIL FUNCTION
 
@@ -79,11 +77,6 @@ const [faculty, setFaculty] = useState('')
   };
 
 
-  const nameInputRef = useRef();
-  const emailInputRef = useRef();
-  const passwordInputRef = useRef();
-
-  let userInFinal = [];
 const sendEmailV = (funcType)=>{
   const auth = getAuth()
 sendEmailVerification(auth.currentUser)
@@ -91,25 +84,30 @@ if(funcType === 'login'){
   alert('Verification email sent')
 }
 }
+
+
   const registerUser = (e) => {
     e.preventDefault();
     setIsLoading(true);
     createUserWithEmailAndPassword(auth, email, password)
-      .then((response) => {
+    .then((response) => {
          set(ref(db, `${response.user.uid}`), {
           name,
           email,
           password,
           regPhoneNumber,
           id: response.user.uid,
+          regStatus: '',
+          paymentStatus: ''
         })
-        // const auth = getAuth()
-        // sendEmailVerification(auth.currentUser)
       sendEmailV();
       alert('Email verification link sent. Please check your email inbox or spam to verify and sign in.')
       auth.signOut();
       })
       .then(() => {
+        updateProfile(auth.currentUser, {
+          displayName: name
+        })
         setIsLoading(false);
       //  <Navigate to='/login'/>
        navigate('/login')
@@ -127,7 +125,6 @@ if(funcType === 'login'){
             console.log(word);
             words.push(word);
           });
-          console.log(words.join(" "));
           setErrorMsg(words.join(" "));
           console.log(error.message);
         }
@@ -141,65 +138,23 @@ if(funcType === 'login'){
   };
  
  
+  const emailVerResendMsg = "Please verify your email first to sign in. Check your mail inbox/spam"
    
   
-const emailVerResendMsg = "Please verify your email first to sign in. Check your mail inbox/spam"
-  const login = () => {
+
+  const loginHandler = () => {
     setIsLoading(true);
     signInWithEmailAndPassword(auth, email, password)
     .then((response) => {
+      console.log(response)
       if(response.user.emailVerified) {
-          return true
+        console.log(response.user)
+       login(response.user.accessToken)
       }else{
         alert('please Verify email')
         setErrorMsg(emailVerResendMsg)
         signOut(auth)
-        
-
-       
       }
-    }).then(()=>{
-      console.log('still ran')
-      onValue(ref(db), (snapshot) => {
-        const responseData = snapshot.val();
-        console.log(responseData)
-        let allUsers = [];
-
-        for (const key in responseData) {
-          allUsers.push({
-            id: key,
-            name: responseData[key].name,
-            email: responseData[key].email,
-            password: responseData[key].password,
-            // regData: responseData[key].regData,
-            regStatus: responseData[key].regStatus,
-            paymentStatus: responseData[key].paymentStatus
-          });
-          
-          const userIn = allUsers.filter((obj) => {
-            return obj.id === auth.currentUser.uid;
-          });
-          userInFinal = userIn[0];
-          
-          const displayName = userIn.map((obj) => {
-            return obj.name;
-          });
-          auth.currentUser.displayName = displayName[0];
-        
-         
-        } 
-        const userName = auth.currentUser.displayName;
-        localStorage.setItem('user',  auth.currentUser.displayName);
-        localStorage.setItem('regStatus', userInFinal.regStatus)
-        localStorage.setItem('paymentStatus', userInFinal.paymentStatus)
-
-        
-        navigate('/dashboard')
-        setErrorMsg("");
-      });
-      setIsLoading(false);
-      localStorage.setItem('logout', 3600000)
-
     })
       .catch((error) => {
         if (error) {
@@ -226,52 +181,55 @@ const emailVerResendMsg = "Please verify your email first to sign in. Check your
       });
   };
 
+const login = useCallback((accessToken, tokenDuration)=>{
+  setToken(()=>{
+   return accessToken
+  })
+  // console.log(accessToken)
+  const tokenExpirationDate = tokenDuration || new Date().getTime() + (1000 * 60 * 60)
+  setTokenExpirationTime(tokenExpirationDate)
+  localStorage.setItem('userData',  JSON.stringify({token:accessToken, tokenExpirationDate}));        
+  navigate('/dashboard')
+  setErrorMsg("");
+  setIsLoading(false);
+})
   useEffect(()=>{
-    async function logTimer(){
-      const logoutTime =  +(localStorage.getItem('logout'))
-      if(logoutTime){     
-          return  setTimeout(()=> logout(), logoutTime)  
-      }else{
-        return;
-      }
+    const storedData = JSON.parse(localStorage.getItem('userData'))
+    if(storedData && storedData.token && storedData.tokenExpirationDate > new Date().getTime()){
+      login(storedData.token, storedData.tokenExpirationDate)
     }
-    logTimer()
-    }, [initialToken])
+    }, [token])
+    
+    const logout =  useCallback((pop) => {
+       signOut(auth);
+       setToken(null)
+       setTokenExpirationTime(null)
+      localStorage.removeItem("userData");
+      setErrorMsg("");
+      navigate('/login')
+    });
+  let timeoutId;
+
+    useEffect(()=>{
+      if(tokenExpirationTime){
+      const remainingTime = tokenExpirationTime - new Date().getTime()
+        timeoutId = setTimeout(logout, remainingTime)
+      }else{
+        clearTimeout(timeoutId)
+      }
+    }, [token])
  
 
-  const logout = async (pop) => {
-    await signOut(auth);
-    localStorage.removeItem("user");
-    localStorage.removeItem("logout");
-    localStorage.removeItem("regStatus")
-    localStorage.removeItem("paymentStatus")
-
-    // console.log(auth.currentUser.displayName)
-    setErrorMsg("");
-    if (pop === "register") {
-      
-      navigate('/signUp')
-    } else {
-    
-      navigate('/login')
-    }
-  };
 
   const homeSignUpBtn = ()=>{
-      if(!initialToken){
-        
+      if(!token){  
         navigate('/signUp')
       }else{
     
         navigate('/home')
       }
   }
-  const handleAddData = () => {
-    setDataStatus(true);
-  };
-  const modal= ()=>{
 
-  }
 
   
   const resetPword =()=>{
@@ -355,7 +313,7 @@ sendPasswordResetEmail(auth, email)
     update(ref(db, `/${auth.currentUser.uid}`), {
       paymentStatus: true
     });
-    localStorage.setItem("paymentStatus", true);
+    
 
     console.log('payment')
    
@@ -383,7 +341,10 @@ sendPasswordResetEmail(auth, email)
   return (
     <ContextCreate.Provider
       value={{
-        handleAddData,
+        regStatus,
+        setRegStatus,
+        paymentStatus,
+        setPaymentStatus,
         users,
         setUsers,
         email,
@@ -391,18 +352,13 @@ sendPasswordResetEmail(auth, email)
         password,
         setName,
         setPassword,
-        nameInputRef,
-        passwordInputRef,
-        emailInputRef,
-        status,
-        setStatus,
         currUser,
         setCurrUser,
         image,
         setImage,
         registerUser,
         logout,
-        login,
+        loginHandler,
         setErrorMsg,
         errorMsg,
         isLoading,
@@ -411,13 +367,13 @@ sendPasswordResetEmail(auth, email)
         ref1,
         show,
         setShow,
-        initialToken,
+        token,
         setFullName,
         setEmailAdd,
         setPhoneNumber,
         setRegNumber,
         setDepartment,
-        
+        setIsLoading,
         setProgramme,
         
         setSessOfGraduation,
@@ -428,7 +384,6 @@ sendPasswordResetEmail(auth, email)
         sendEmail,
         topScroll,
         homeSignUpBtn,
-        regStatus,
         fullName,
         emailAdd,
         phoneNumber,
@@ -446,7 +401,6 @@ sendPasswordResetEmail(auth, email)
         handleOpenModal,
         resetPword,
         paymentFunc,
-        paymentStatus,
         emailVBtn,
         setEmailVBtn,
         sendEmailV,
@@ -470,4 +424,3 @@ sendPasswordResetEmail(auth, email)
 const ConsumerContext = ContextCreate.Consumer;
 
 export { ContextProvider, ConsumerContext };
-

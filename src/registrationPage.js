@@ -17,16 +17,11 @@ const RegistrationPage = () => {
       {(value) => {
         const {
           isLoading,
-          
           updateFunc,
-          initialToken,
-          
+          token,
           regStatus,
-          
           setPhoneNumber,
           setRegNumber,
-          setDepartment,
-
           setFullName,
           setProgramme,
           setDocType,
@@ -42,7 +37,7 @@ const RegistrationPage = () => {
           docType
         } = value;
        
-        if (initialToken) {
+        if (token) {
           return (
             <>
               {openModal ? <Modal /> : null}
@@ -52,7 +47,7 @@ const RegistrationPage = () => {
                 </h2>
               </div>
 
-              {regStatus === "undefined" ? (
+              {regStatus === '' ? (
                 <div className="font-openSans lg:w-1/2 px-10 lg:mt-16 mx-auto block">
                   <h2 className="mt-16 text-center  font-bold ">
                     Please, carefully fill in your details.
