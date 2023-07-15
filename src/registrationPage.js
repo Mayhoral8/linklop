@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { ConsumerContext } from "./context";
 import Modal from "./modal";
@@ -6,36 +6,32 @@ import Footer from "./footer";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import whatsappIcon from "./img/whatsappIcon.png";
-import emailjs from "@emailjs/browser";
+import { ContextCreate } from "./context";
 
 const RegistrationPage = () => {
+
+  const {  isLoading,
+    updateFunc,
+    token,
+    regStatus,
+    setPhoneNumber,
+    setRegNumber,
+    setFullName,
+    setProgramme,
+    setDocType,
+    setFaculty,
+    form,
+    openModal,
+    setDurationOfStudy,
+    setCourseOfStudy,
+    setModeOfStudy,
+    setEmailAdd,
+    docType} = useContext(ContextCreate)
   useEffect(() => {
     Aos.init({ duration: 600 });
   }, []);
-  return (
-    <ConsumerContext>
-      {(value) => {
-        const {
-          isLoading,
-          updateFunc,
-          token,
-          regStatus,
-          setPhoneNumber,
-          setRegNumber,
-          setFullName,
-          setProgramme,
-          setDocType,
 
-          setFaculty,
-          form,
-          
-          openModal,
-          setDurationOfStudy,
-          setCourseOfStudy,
-          setModeOfStudy,
-          setEmailAdd,
-          docType
-        } = value;
+    
        
         if (token) {
           return (
@@ -47,7 +43,7 @@ const RegistrationPage = () => {
                 </h2>
               </div>
 
-              {regStatus === '' ? (
+              {regStatus  ? (
                 <div className="font-openSans lg:w-1/2 px-10 lg:mt-16 mx-auto block">
                   <h2 className="mt-16 text-center  font-bold ">
                     Please, carefully fill in your details.
@@ -239,8 +235,5 @@ const RegistrationPage = () => {
         } else {
           return <Navigate to="/login" />;
         }
-      }}
-    </ConsumerContext>
-  );
 };
 export default RegistrationPage;

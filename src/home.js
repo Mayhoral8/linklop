@@ -35,9 +35,9 @@ const Home = () => {
         return (
           <>
           {/* {!closeModal ? <Modal/> : null} */}
-            <section className="lg:flex lg:flex-row-reverse lg:justify-between lg:mt-12 py-8 w-full lg:w-full lg:h-96 bg-blue-base text-gray mx-auto">
+            <section className="lg:grid lg:grid-cols-2 px-36 lg:justify-between lg:mt-12 py-8 w-full lg:w-full lg:h-96 bg-blue-base text-gray mx-auto">
               <div
-                className="lg:mt-6 mt-16 lg:mx-52 mx-auto  lg:min-w-96   lg:h-64 w-44 h-56"
+                className="lg:mt-6 mt-16 lg:order-last ml-auto lg:h-64 w-44 h-56"
                 data-aos="fade-left"
                 data-aos-easing="ease-out"
                 data-aos-duration="1200"
@@ -46,15 +46,15 @@ const Home = () => {
               </div>
 
               <div
-                className="lg:mt-4   lg:ml-36 flex flex-col"
+                className="lg:mt-4  flex flex-col"
                 data-aos="fade-right"
                 data-aos-easing="ease-out"
                 data-aos-duration="1200"
               >
-                <div className="font-openSans capitalize lg:text-large text-center text-2xl font-bold text-white mt-12  lg:text-left">
+                <div className=" lg:text-left text-center font-openSans grid:grid-rows-3 capitalize lg:text-2xl text-2xl font-bold text-white mt-12  ">
                   <h3>Get your</h3>
 
-                <span className=" text-orange-base "> 
+                <div className=" text-orange-base ml-auto w-auto"> 
                 <TypeWriterEffect
         startDelay={1000}
         cursorColor="#3F3D56"
@@ -70,9 +70,7 @@ const Home = () => {
         multiTextDelay={4000}
         typeSpeed={100}
         multiTextLoop
-      />
-                
-                 </span>
+      /> </div>
                 
                   <h3>From Unizik in</h3> 
                   <h3>7-14 days</h3>
@@ -89,7 +87,7 @@ const Home = () => {
             </section>
 
             <section className="mt-10">
-              <h2 className="text-center font-openSans font-bold">GET STARTED IN 3 EASY STEPS</h2>
+              <h2 className="text-center lg:text-2xl font-openSans font-bold">GET STARTED IN 3 EASY STEPS</h2>
 
               <article className="lg:flex lg:flex-row-reverse mx-auto justify-around">
                 <div

@@ -1,118 +1,75 @@
-import {React, useState, useEffect} from 'react'
+import {React, useState, useEffect, useContext} from 'react'
 import { PaystackButton } from 'react-paystack'
 import styled from 'styled-components'
-import { auth } from "./firebase-config";
-import { ConsumerContext } from "./context";
-import {
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
-import { set, ref, update, onValue } from "firebase/database";
+import { ContextCreate } from './context';
+import { ref, onValue } from "firebase/database";
 import { db } from "./firebase-config";
-import { Navigate } from 'react-router-dom';
-import { getAuth } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
+
 
 const Paystack =()=> {
-
+const navigate = useNavigate()
     const publicKey = "pk_test_c77789432ebc6458f202f41e8e30e0971371909d"
   // const amount = 1000000 // Remember, set in kobo!
   const [email, setEmail] = useState()
   const [name, setName] = useState("")
   const [phone, setPhone] = useState("")
   const [amount, setAmount] = useState("")
-  const [openModal, setOpenModal] = useState(false)
+
 
   // const [password, setPassword] = useState('')
   
-  let userInFinal = ''
-const auth = getAuth(); 
-const user = auth.currentUser;
-const regStatus = localStorage.getItem('regStatus');
+ 
+const {token, regStatus, userId, setIsLoading, paymentFunc, paymentStatus, setPaymentStatus} = useContext(ContextCreate)
 
+useEffect(()=>{
 
-
-
-
-
-  useEffect(()=>{
-
-          onValue(ref(db), (snapshot) => {
-            const responseData = snapshot.val();
-            let allUsers = [];
-            console.log(responseData)
-  
-            for (const key in responseData) {
-              allUsers.push({
-                id: key,
-                name: responseData[key].name,
-                email: responseData[key].email,
-                password: responseData[key].password,
-                regStatus: responseData[key].regStatus,
-                phone: responseData[key].regPhoneNumber,
-                amount: responseData[key].amount
-              });
-            }
-            const userIn = allUsers.filter((obj) => {
-              return obj.id === auth.currentUser.uid;
-            });
-            userInFinal = userIn[0];
-          
-
-            setEmail(()=>{
-              return (userInFinal.email)
-            })
-            setName(()=>{
-              return (userInFinal.name)
+  onValue(ref(db, `/users/${userId}`), (snapshot) => 
+  {
+    const responseData = snapshot.val();
+    setIsLoading(false)
+    setEmail(()=>{
+      return (responseData.email)
+    })
+    setName(()=>{
+              return (responseData.name)
             })
             setPhone(()=>{
-              return (userInFinal.phone)
+              return (responseData.phone)
             })
             setAmount(()=>{
-              if (userInFinal.amount === 'undefined'){
-                alert('you have not yet been cleared for payment')
-                return ''
-              } else{
-                return userInFinal.amount
-              } 
+
+                return responseData.amount
+              
+            
             })
           })
-        
-      }, [regStatus])
-            
-   
+ 
+}, (error)=>{
+  setIsLoading(false)
+  console.log(error)    
+    }, [userId])
 
-  return (
-    <>
-      <ConsumerContext>
-      {(value) => {
-          const {
-            paymentFunc,
-            initialToken
-          } = value;
-  const componentProps = {
-    email,
-    amount,
-    metadata: {
-      name,
-      phone,
-    },
-    publicKey,
-    text: "Pay Now",
-    onSuccess: ()=>{
-
-      alert("Thanks for doing business with us! Come back soon!!")
-      paymentFunc();
-
-      
-
-    },
-    onClose: () => alert("Are you sure you want to cancel?"),
-    onerror: ()=> console.log('error')
+    
+    const componentProps = {
+      email,
+      amount,
+      metadata: {
+        name,
+        phone,
+      },
+      publicKey,
+      text: "Pay Now",
+      onSuccess: ()=>{
+        alert("Thanks for doing business with us! Come back soon!!")
+        paymentFunc();
+      },
+      onClose: () => alert("Are you sure you want to cancel?"),
+      onerror: ()=> console.log('error')
   }
-  if(initialToken){
 
+
+  if(token){
   return (
     <>
     <div className=" bg-blue-base h-72 font-openSans mx-auto lg:mt-20 block">
@@ -125,21 +82,18 @@ const regStatus = localStorage.getItem('regStatus');
     <div className="checkout-form mx-auto mt-56
     ">
  
-      <h1 className="text-center font-medium font-openSans mt-20 lg:text-base font-bold">You are about to be redirected <br/> to our payment portal</h1>
-  <PaystackButton onSuccess={()=> console.log('yes')} onClose={console.log('no')}  className={`block font-openSans bg-orange-base text-white w-48 mt-8 rounded-lg h-12 lg:h-12 mx-auto`} {...componentProps} />
+      <h1 className="text-center font-medium font-openSans mt-20 lg:text-base font-bold">{regStatus === '' ? 'You are about to be redirected': 'Please register before making payment'} <br/> {regStatus === '' ? 'to our payment portal': null}</h1>
+  {regStatus === '' ?<PaystackButton onSuccess={()=> console.log('yes')} onClose={console.log('no')}  className={`block font-openSans bg-orange-base text-white w-48 mt-8 rounded-lg h-12 lg:h-12 mx-auto`} {...componentProps} /> : null}
 </div>
       </PaymentStyle>
     </>
 )
 } else{
-  return <Navigate to = '/login'/>
+  return navigate('/login')
 }
-      }
 }
-       </ConsumerContext>
-    </>
-  )
-}
+
+
 
 
 const PaymentStyle = styled.div`

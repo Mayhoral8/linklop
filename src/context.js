@@ -42,6 +42,7 @@ const ContextProvider = (props) => {
   const [closeModal, setCloseModal] = useState(false)
   const [token, setToken] = useState()
   const [tokenExpirationTime, setTokenExpirationTime] = useState(null)
+  const [userId, setUserId] = useState()
 
   const form = useRef();
 
@@ -91,10 +92,8 @@ if(funcType === 'login'){
     setIsLoading(true);
     createUserWithEmailAndPassword(auth, email, password)
     .then((response) => {
-         set(ref(db, `${response.user.uid}`), {
-          name,
+         set(ref(db, `users/${response.user.uid}`), {
           email,
-          password,
           regPhoneNumber,
           id: response.user.uid,
           regStatus: '',
@@ -146,10 +145,9 @@ if(funcType === 'login'){
     setIsLoading(true);
     signInWithEmailAndPassword(auth, email, password)
     .then((response) => {
-      console.log(response)
       if(response.user.emailVerified) {
         console.log(response.user)
-       login(response.user.accessToken)
+       login(response.user.accessToken, response.user.uid)
       }else{
         alert('please Verify email')
         setErrorMsg(emailVerResendMsg)
@@ -181,14 +179,15 @@ if(funcType === 'login'){
       });
   };
 
-const login = useCallback((accessToken, tokenDuration)=>{
+const login = useCallback((accessToken, uid, tokenDuration)=>{
   setToken(()=>{
    return accessToken
   })
+  setUserId(uid)
   // console.log(accessToken)
   const tokenExpirationDate = tokenDuration || new Date().getTime() + (1000 * 60 * 60)
   setTokenExpirationTime(tokenExpirationDate)
-  localStorage.setItem('userData',  JSON.stringify({token:accessToken, tokenExpirationDate}));        
+  localStorage.setItem('userData',  JSON.stringify({token:accessToken, tokenExpirationDate, uid}));        
   navigate('/dashboard')
   setErrorMsg("");
   setIsLoading(false);
@@ -196,7 +195,7 @@ const login = useCallback((accessToken, tokenDuration)=>{
   useEffect(()=>{
     const storedData = JSON.parse(localStorage.getItem('userData'))
     if(storedData && storedData.token && storedData.tokenExpirationDate > new Date().getTime()){
-      login(storedData.token, storedData.tokenExpirationDate)
+      login(storedData.token, storedData.uid, storedData.tokenExpirationDate)
     }
     }, [token])
     
@@ -217,7 +216,7 @@ const login = useCallback((accessToken, tokenDuration)=>{
       }else{
         clearTimeout(timeoutId)
       }
-    }, [token])
+    }, [token, userId])
  
 
 
@@ -249,7 +248,6 @@ sendPasswordResetEmail(auth, email)
   }
   const updateFunc = (e) => {
     e.preventDefault();   
-  
           if (
             fullName !== "" &&
             emailAdd !== "" &&
@@ -414,7 +412,8 @@ sendPasswordResetEmail(auth, email)
         modeOfStudy,
         durationOfStudy,
         navigate,
-        setFaculty
+        setFaculty,
+        userId
       }}
     >
       {props.children}

@@ -178,3 +178,22 @@ export default FlutterWave;
                 // fetch( `https://api.callmebot.com/text.php?user=${username}&text=${string1.join(',').replaceAll(':', ': ')}`,{
                 //   method: 'POST',
                 //   mode: 'no-cors'
+
+                 //   for (const key in users) {
+    //     allUsers.push({
+    //     id: key,
+    //     email: users[key].email,
+    //     password: users[key].password,
+    //     regStatus: users[key].regStatus,
+    //     paymentStatus: users[key].paymentStatus
+    //   }
+    //   );
+    // }
+
+  
+    // const userIn = allUsers.filter((obj) => {
+    //   return obj.id === auth.currentUser.uid;
+    // });
+    // userInFinal = userIn[0]
+    // console.log(userIn)
+    // console.log(userInFinal)

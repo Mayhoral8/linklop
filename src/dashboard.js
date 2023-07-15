@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { ConsumerContext } from "./context";
 import { db } from "./firebase-config";
-import { set, ref, update, onValue } from "firebase/database";
+import { getDatabase, ref, update, onValue } from "firebase/database";
 import { ContextCreate } from "./context";
 import Modal from "./modal";
 
@@ -10,58 +10,35 @@ import Footer from "./footer";
 import { getAuth } from "firebase/auth";
 
 const Dashboard = () => {
-  const {token, setIsLoading, regStatus, setRegStatus, paymentStatus, setPaymentStatus} = useContext(ContextCreate)
+  const {token, openModal, userId, setIsLoading, regStatus, setRegStatus, paymentStatus, setPaymentStatus} = useContext(ContextCreate)
   const auth = getAuth()
   const navigate = useNavigate();
-  let userInFinal;
-
 const [displayName, setDisplayName] = useState('')
 
 useEffect(()=>{
-  if(auth){
+  if(userId){
     setIsLoading(true)
-    onValue(ref(db), (snapshot) => {
+    onValue(ref(db, `/users/${userId}`), (snapshot) => 
+    {
       const responseData = snapshot.val();
-      // console.log(responseData)
-      let allUsers = [];
-      for (const key in responseData) {
-        allUsers.push({
-        id: key,
-        name: responseData[key].name,
-        email: responseData[key].email,
-        password: responseData[key].password,
-        regStatus: responseData[key].regStatus,
-        paymentStatus: responseData[key].paymentStatus
-      });
-    }
-    const userIn = allUsers.filter((obj) => {
-      return obj.id === auth.currentUser.uid;
-    });
-    setDisplayName(auth.currentUser.displayName)
-    userInFinal = userIn[0]
-    console.log(allUsers)
-    console.log(userInFinal)
-    setRegStatus(userInFinal.regStatus === '' ? 'Not Uploaded': 'Uploaded')
-    setPaymentStatus(userInFinal.paymentStatus === '' ? 'Not Paid': 'Paid')
+      setDisplayName(auth.currentUser.displayName)
+      setRegStatus(responseData.regStatus === '' ? 'Not Uploaded': 'Uploaded')
+      setPaymentStatus(responseData.paymentStatus === '' ? 'Not Paid': 'Paid')
+      setIsLoading(false)
+
+   
+  }, (error)=>{
     setIsLoading(false)
+    console.log(error)
   }
 
-  );
+  )
 }else{
   navigate('/login')
 }
-}, [regStatus, paymentStatus, auth])
+}, [regStatus, paymentStatus, userId])
 
-  console.log(auth)
-  if(auth.currentUser){
-  return (
-    <>
-      <ConsumerContext>
-        {(value) => {
-          const { token, setOpenModal, openModal } = value;
-         
-if(token){
-
+  if(userId){
   return (
     <>
                  { openModal ? <Modal/> : null}
@@ -108,14 +85,19 @@ if(token){
             </>
           )
         } 
-          
+else{
+  return navigate('/login')
 }
-        }
-      </ConsumerContext>
-    </>
-  );
-}else{
-  return  navigate('/login')
+;
 }
-};
 export default Dashboard;
+
+// get(child(dbRef, `users/${userId}`)).then((snapshot) => {
+//   if (snapshot.exists()) {
+//     console.log(snapshot.val());
+//   } else {
+//     console.log("No data available");
+//   }
+// }).catch((error) => {
+//   console.error(error);
+// });

@@ -24,8 +24,8 @@ const Navbar = () => {
           } = value;
 
           return (
-            <section className="font-openSans lg:grid lg:grid-cols-2 lg:px-36 top-0 fixed h-12 lg:h-20 z-10 bg-white w-full shadow-md">
-              <div className="my-auto flex flex-row justify-between ">
+            <section className=" font-openSans lg:grid lg:grid-cols-2 lg:px-36 top-0 fixed h-12 lg:h-20 z-10 bg-white w-full shadow-md">
+              <div className="px-4 my-auto flex flex-row justify-between ">
                 <Link to="/">
                   <img
                     src={TranscertLogo}

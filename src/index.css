@@ -6,9 +6,15 @@ html, body{
 overflow-x: hidden;
 /* height: 100vh; */
 }
-body {
-    /* position: relative; */
-}
+
+@media only screen and (max-width: 967px) {
+    /* Your desktop-specific CSS styles go here */
+   
+    /* Additional styles... */
+    h1.react-typewriter-text-wrap{
+     text-align: center;
+    }
+  }
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
