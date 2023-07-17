@@ -13,23 +13,24 @@ const Dashboard = () => {
   const auth = getAuth()
   const navigate = useNavigate();
 const [displayName, setDisplayName] = useState('')
-
+// setIsLoading(true)
 useEffect(()=>{
-  setIsLoading(true)
   if(userId){
+    setIsLoading(true)
     onValue(ref(db, `/users/${userId}`), (snapshot) => 
     {
       const responseData = snapshot.val();
       setDisplayName(auth.currentUser.displayName)
       setRegStatus(responseData.regStatus === '' ? 'Not Uploaded': 'Uploaded')
       setPaymentStatus(responseData.paymentStatus === '' ? 'Not Paid': 'Paid')
-      setIsLoading(false)
+     
   }, (error)=>{
     setIsLoading(false)
     console.log(error)
   }
 
   )
+  setIsLoading(false)
 }else{
   navigate('/login')
 }

@@ -180,6 +180,7 @@ if(funcType === 'login'){
   };
 
 const login = useCallback((accessToken, uid, tokenDuration)=>{
+  setIsLoading(true);
   setToken(()=>{
    return accessToken
   })
@@ -200,12 +201,15 @@ const login = useCallback((accessToken, uid, tokenDuration)=>{
     }, [token])
     
     const logout =  useCallback((pop) => {
+    setIsLoading(true);
        signOut(auth);
        setToken(null)
        setTokenExpirationTime(null)
       localStorage.removeItem("userData");
       setErrorMsg("");
       navigate('/login')
+    // setIsLoading(false);
+
     });
   let timeoutId;
 

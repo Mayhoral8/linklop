@@ -17,7 +17,7 @@ const LoadingOverlay =()=>{
 
     <ModalStyle>
     <div className='text-4xl'>
-    <i className="fas fa-spinner animate-spin text-yellow-400"/> 
+    <i className="fas fa-spinner animate-spin text-orange-base"/> 
 
     </div>
     </ModalStyle>

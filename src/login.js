@@ -5,6 +5,10 @@ import TranscertLogo from './img/TranscertLogo.png'
 import Footer from "./footer";
 
 const Login = () => {
+  const[showPassword, setShowPassword] = useState(false)
+  const passwordShowHandler = ()=>{
+    setShowPassword(!showPassword)
+  }
   return (
     <>
       <ConsumerContext>
@@ -57,14 +61,17 @@ const Login = () => {
                       disabled={isLoading? true:false}
                       onChange={(e) => setEmail(e.target.value)}
                     />
-                     
+                     <div className="grid grid-cols-2">
+
                     <input
                       className={`focus:outline-none box border-b-2 h-8 w-72 text-gray-700 ${errorMsg === 'Wrong Password'? 'border-red border-2': null}`}
-                      type="password"
+                      type={showPassword? 'password': 'text'}
                       placeholder="Password"
                       disabled={isLoading? true:false}
                       onChange ={(e)=> {setPassword(e.target.value); }}
                       />
+                      <span className="text-end mt-2">{showPassword?<i class="fa-solid fa-eye cursor-pointer" onClick={passwordShowHandler}></i>: <i class="fa-solid fa-eye-slash cursor-pointer" onClick={passwordShowHandler}></i>}</span>
+                      </div>
                       
                   </div>
                 </div>
