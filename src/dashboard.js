@@ -1,8 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import { ConsumerContext } from "./context";
+import { Link, useNavigate } from "react-router-dom";
 import { db } from "./firebase-config";
-import { getDatabase, ref, update, onValue } from "firebase/database";
+import { ref, onValue } from "firebase/database";
 import { ContextCreate } from "./context";
 import Modal from "./modal";
 
@@ -16,8 +15,8 @@ const Dashboard = () => {
 const [displayName, setDisplayName] = useState('')
 
 useEffect(()=>{
+  setIsLoading(true)
   if(userId){
-    setIsLoading(true)
     onValue(ref(db, `/users/${userId}`), (snapshot) => 
     {
       const responseData = snapshot.val();
@@ -25,8 +24,6 @@ useEffect(()=>{
       setRegStatus(responseData.regStatus === '' ? 'Not Uploaded': 'Uploaded')
       setPaymentStatus(responseData.paymentStatus === '' ? 'Not Paid': 'Paid')
       setIsLoading(false)
-
-   
   }, (error)=>{
     setIsLoading(false)
     console.log(error)
@@ -92,12 +89,3 @@ else{
 }
 export default Dashboard;
 
-// get(child(dbRef, `users/${userId}`)).then((snapshot) => {
-//   if (snapshot.exists()) {
-//     console.log(snapshot.val());
-//   } else {
-//     console.log("No data available");
-//   }
-// }).catch((error) => {
-//   console.error(error);
-// });

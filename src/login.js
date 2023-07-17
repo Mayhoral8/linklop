@@ -1,13 +1,10 @@
-import { React, useRef, useState } from "react";
+import { React, useState } from "react";
 import { ConsumerContext } from "./context";
 import { Link, Navigate } from "react-router-dom";
 import TranscertLogo from './img/TranscertLogo.png'
 import Footer from "./footer";
-import { send } from "@emailjs/browser";
 
 const Login = () => {
-  const [state1, setState1] = useState(false);
-  const [item, setItem] = useState([]);
   return (
     <>
       <ConsumerContext>
