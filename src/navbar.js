@@ -1,183 +1,75 @@
-import React from "react";
+import React, {useContext, useState} from "react";
 import { Link } from "react-router-dom";
-import { ConsumerContext } from "./context";
+import { ContextComp, ContextCreate } from "./context";
 import { useNavigate } from "react-router-dom";
-import { auth } from "./firebase-config";
-import TranscertLogo from "./img/TranscertLogo.png";
-import Register1 from "./img/Register1.jpg";
+import linkImg from './img/linklop-black.png'
+
+
 
 const Navbar = () => {
   const navigate = useNavigate();
-
-  return (
-    <>
-      <ConsumerContext>
-        {(value) => {
-          const {
-            logout,
-            currUser,
-            show,
-            setShow,
-            setCurrUser,
-            token,
-            topScroll,
-          } = value;
-
+ const { topScroll, logout,   token} = useContext(ContextCreate)
+ const [show, setShow] = useState(false)
+    const showHandler = ()=>{
+        setShow(!show)
+    }
           return (
-            <section className=" font-openSans lg:grid lg:grid-cols-2 lg:px-36 top-0 fixed h-12 lg:h-20 z-10 bg-white w-full shadow-md">
-              <div className="px-4 my-auto flex flex-row justify-between ">
-                <Link to="/">
-                  <img
-                    src={TranscertLogo}
-                    alt=""
-                    onClick={() =>
-                      setShow((presShow) => {
-                        if (presShow === true) {
-                          return show;
-                        } else {
-                          return !show;
-                        }
-                      })
-                    }
-                    className="lg:mt-0 mt-2.5 box text-black  lg:w-40 w-28 "
-                  />
+            <div className=" lg:mx-auto lg:grid lg:grid-cols-2 grid-rows-2 shadow-md z-20 fixed lg:w-full top-0 left-0 right-0  lg:grid bg-white  h-12  items-center">
+            <div className="px-4 grid grid-cols-2 mx-auto">
+              <div className="w-28 flex lg:items-center align-center lg:mt-5 mt-3">
+                <Link to='/'>
+                <img src={linkImg} className="  box text-black  w-24  "/>
                 </Link>
-                {show ? (
-                  <i
-                    className="fas fa-bars my-auto cursor-pointer  lg:hidden mt-4 text-blue-base"
-                    onClick={() =>
-                      setShow(() => {
-                        return !show;
-                      })
-                    }
-                  />
-                ) : (
-                  <i
-                    className="fas fa-close my-auto cursor-pointer  lg:hidden mt-4 text-blue-base"
-                    onClick={() =>
-                      setShow(() => {
-                        return !show;
-                      })
-                    }
-                  />
-                )}
               </div>
-              <div
-                className={`h-0 lg:mt-7 mt-4 lg:grid  navbar-project lg:visible sticky transition-all ease-in delay-400 ${
-                  show ? "h-0" : "h-48 lg:h-0"
-                } bg-orange-base w-full  top-0 z-20 absolute block`}
-              >
-                <div
-                  className={` ${
-                    show ? "hidden" : "block"
-                  } lg:grid lg:grid-flow-col text-center   text-center text-white lg:text-gray`}
-                >
-                  <div
-                    className={`${
-                      show ? "hidden" : "block"
-                    } lg:block`}
-                  >
-                    <Link to="/dashboard">
-                      <button
-                        type="button"
-                        className={`${token ? "visible" : "hidden"}  `}
-                        onClick={() => {
-                          setShow(!show);
-                        }}
-                      >
-                        Dashboard
-                      </button>
-                    </Link>
-                  </div>
-                  <div
-                    className={`${
-                      show ? "hidden" : "block"
-                    } lg:block`}
-                  >
-                    <Link to="/registration">
-                      <button
-                        type="button"
-                        className={`${token ? "visible" : "hidden"}  `}
-                        onClick={() => {
-                          setShow(!show);
-                        }}
-                      >
-                        Register
-                      </button>
-                    </Link>
-                  </div>
-                  <div className={`${token ? "visible" : "hidden"}`}>
-                    <Link to="/payment">
-                      <button
-                        onClick={() => {
-                          setShow(!show);
-                          topScroll();
-                        }}
-                      >
-                        Payment
-                      </button>
-                    </Link>
-                  </div>
+            <i onClick={showHandler} className={`w-4 ml-auto lg:hidden fa-solid text-lg text-blue-base ${show? 'fa-xmark': 'fa-bars'} mt-3 cursor-pointer`}/>
+            </div>
 
-                  <div className={`${token ? "visible" : "hidden"}`}>
-                    <button
-                      type="button"
-                      
-                      onClick={() => {
-                        logout();
-                        setShow(!show);
-                      }}
-                    >
-                      Sign Out
-                    </button>
-                  </div>
-                </div>
-                <div className={`${
-                    show ? "hidden" : "visible"} lg:grid lg:grid-cols-2  lg:text-end lg:text-blue-base text-md text-center text-white`}>
-                  <div>
-                    <Link to="/login">
-                      <button
-                        className={`${
-                          token ? "hidden" : "visible"
-                        } `}
-                        onClick={() => {
-                          setShow(!show);
-                          topScroll();
-                        }}
+            <div
+                    className={`h-0 lg:bg-white  lg:visible ${
+                        false ? "h-0" : "lg:h-0 w-0"
+                      } bg-blue-400 top-0 z-40  block `}
                       >
-                        Login
-                      </button>
-                    </Link>
-                  </div>
-                  <div
-                    className={`${
-                      token ? "hidden" : "visible"
-                    } `}
-                  >
-                    <Link to="/signUp">{
-
-                      <button
-                      className={`${
-                        token ? "hidden" : "visible"
-                      } lg:bg-orange-base lg:w-28 lg:h-8 lg:rounded-md text-white text-center`}
-                      onClick={() => {
-                        logout("register");
-                        topScroll();
-                        setShow(!show);
-                      }}
-                      >
-                        Sign Up Free
-                      </button>
-                      }
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </section>
+                        <div className={`${
+                            show ? " w-72 pt-20 pl-5 lg:pt-0 lg:pl-0 " : "w-0 lg:w-96"} lg:w-96 lg:text-end  bg-white h-screen fixed  lg:text-base transition-all delay-400 duration-500 space-y-4 lg:space-y-0  ease-in-out text-2xl lg:grid lg:grid-rows-2 lg:h-0    lg:grid lg:grid-cols-2   lg:text-blue-base text-white`}>
+                          <div>
+                            <Link to="/login">
+                              <button
+                                className={`block text-blue-500 text-start lg:block transition-opacity delay-600 duration-600 ease-in-out ${
+                                   show ? "visilbe" : "hidden"
+                                } `}
+                                onClick={() => {
+                                  setShow(!show);
+                                  topScroll();
+                                }}
+                              >
+                                Login
+                              </button>
+                            </Link>
+                          </div>
+                          <div
+                            className={ ` lg:block transition-opacity delay-600 duration-600 ease-in-out ${ 
+                               show ? "visible" : "hidden"
+                            }`}
+                          >
+                            <Link to="/signUp">{
+        
+                              <button
+                              className={`text-blue-500 lg:rounded-md `}
+                              onClick={() => {
+                                logout("register");
+                                topScroll();
+                                setShow(!show);
+                              }}
+                              >
+                                Sign Up Free
+                              </button>
+                              }
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+            </div>
           );
-        }}
-      </ConsumerContext>
-    </>
-  );
-};
+                    }
+    
 export default Navbar;

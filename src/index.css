@@ -1,12 +1,15 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
-html, body{
-overflow-x: hidden;
-/* height: 100vh; */
+
+.main{
+  background-image: url('img/linky.png');
+  background: url('img/link-main.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  
 }
-
+.mark{
+  background: rgba(242, 238, 238, 0.133)
+}
 @media only screen and (max-width: 967px) {
     /* Your desktop-specific CSS styles go here */
    
