@@ -25,17 +25,17 @@ const Navbar = () => {
             </div>
 
             <div
-                    className={`h-0 lg:bg-white  lg:visible ${
+                    className={`h-0 lg:bg-white lg:pt-0  ${
                         false ? "h-0" : "lg:h-0 w-0"
                       } bg-blue-400 top-0 z-40  block `}
                       >
                         <div className={`${
-                            show ? " w-72 pt-20 pl-5 lg:pt-0 lg:pl-0 " : "w-0 lg:w-96"} lg:w-96 lg:text-end  bg-white h-screen fixed  lg:text-base transition-all delay-400 duration-500 space-y-4 lg:space-y-0  ease-in-out text-2xl lg:grid lg:grid-rows-2 lg:h-0    lg:grid lg:grid-cols-2   lg:text-blue-base text-white`}>
+                            show ? "w-72 pt-20 pl-5 lg:pt-0 lg:pl-0" : "w-0 lg:w-96"} lg:mt-0 nav mt-2 lg:w-96 lg:text-end  bg-white h-screen fixed lg:text-base transition-all delay-400 duration-500 space-y-4 lg:space-y-0  ease-in-out text-2xl lg:grid lg:grid-rows-2 lg:h-0    lg:grid lg:grid-cols-2   lg:text-blue-base text-white`}>
                           <div>
                             <Link to="/login">
                               <button
-                                className={`block text-blue-500 text-start lg:block transition-opacity delay-600 duration-600 ease-in-out ${
-                                   show ? "visilbe" : "hidden"
+                                className={` text-blue-500 text-base text-start lg:block transition-opacity delay-600 duration-600 ease-in-out ${
+                                   show ? "block" : "hidden"
                                 } `}
                                 onClick={() => {
                                   setShow(!show);
@@ -47,14 +47,14 @@ const Navbar = () => {
                             </Link>
                           </div>
                           <div
-                            className={ ` lg:block transition-opacity delay-600 duration-600 ease-in-out ${ 
-                               show ? "visible" : "hidden"
+                            className={ `  lg:block transition-opacity delay-600 duration-600 ease-in-out ${ 
+                               show ? "block" : "hidden"
                             }`}
                           >
                             <Link to="/signUp">{
         
                               <button
-                              className={`text-blue-500 lg:rounded-md `}
+                              className={`text-blue-500 text-base lg:rounded-md `}
                               onClick={() => {
                                 logout("register");
                                 topScroll();

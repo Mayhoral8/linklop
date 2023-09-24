@@ -7,6 +7,7 @@ const ContextComp = (props)=>{
     const [modal, setModal] = useState(false)
     const [modalMsg, setModalMsg] = useState('')
     const [isLoading, setIsLoading] = useState()
+    const [qrCode, setQrCode] = useState('')
 
     return(
         <ContextCreate.Provider    
@@ -16,7 +17,9 @@ const ContextComp = (props)=>{
             setModal,
             setModalMsg,
             isLoading,
-            setIsLoading
+            setIsLoading,
+            qrCode,
+            setQrCode
         }}>
      
 

@@ -10,10 +10,12 @@
 .mark{
   background: rgba(242, 238, 238, 0.133)
 }
+.nav{
+  box-shadow: 0.5px 3px 2px rgb(46, 46, 46)
+  }
+  
+  
 @media only screen and (max-width: 967px) {
-    /* Your desktop-specific CSS styles go here */
-   
-    /* Additional styles... */
     h1.react-typewriter-text-wrap{
      text-align: center;
     }
