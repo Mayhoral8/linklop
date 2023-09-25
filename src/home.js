@@ -57,7 +57,7 @@ return(<>
     <div className="flex flex-col mx-auto w-full space-y-8 lg:space-y-10">
     <div className="flex flex-col space-y-5">
      <div className="flex flex-row mt-16 lg:mt-20 lg:mr-auto lg:text-start">   
-    <h1 className=" font-bold text-2xl text-gray-800 capitalize text-center mx-auto lg:text-start">URL <span className="text-blue-500 font-bold">Shortner</span> <br className="hidden lg:visible"/> & <br className=""/>QR Code <span className="text-blue-500 font-bold">Generator</span></h1>
+    <h1 className=" font-bold text-2xl text-gray-800 capitalize text-center mx-auto lg:text-start">URL <span className="text-blue-500 font-bold">Shortener</span> <br className="hidden lg:visible"/> & <br className=""/>QR Code <span className="text-blue-500 font-bold">Generator</span></h1>
     </div>
     <p className="text-xs lg:text-sm text-center lg:text-start">Free tool to shorten url characters<br/>  and generate QR codes. <br/>For business owners and professionals</p>
     </div>
