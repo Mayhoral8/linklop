@@ -1,7 +1,7 @@
 import React, {useContext} from 'react'
 import styled from "styled-components"
 import { ContextCreate } from "./context";
-import linkImg from './img/link-lop.png'
+
 
 
 

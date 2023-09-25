@@ -40,7 +40,7 @@ const [btnText, setBtnText] = useState('copy')
                     </div>
                     <img src={qrCode} className='canvas w-20 h-20 mx-auto'/>
         <div className='flex flex-row mx-auto items-center'>
-        <input value = {modalMsg} className='text-xs px-2 border h-8 w-36 rounded-l-md'/>
+        <input defaultValue = {modalMsg} className='text-xs px-2 border h-8 w-36 rounded-l-md'/>
         <button className='bg-blue-500 text-white h-8 w-12 rounded-r-md text-xs' onClick={copyHandler}>{btnText}</button>
         </div>
                   </div>

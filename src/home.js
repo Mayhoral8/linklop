@@ -13,7 +13,7 @@ const Home = ()=>{
     const {setModalMsg, setModal, setIsLoading, setQrCode} = useContext(ContextCreate)
     const [link, setLink] = useState('')
     const year = new Date().getFullYear()
-
+    const api = process.env.REACT_APP_API
 
     const handleLink =(e)=>{
         e.preventDefault()
@@ -24,7 +24,7 @@ const Home = ()=>{
     const shortenLink = async ()=>{
         setIsLoading(true)
         try{
-            const response = await fetch('http://localhost:8000/api/shorten',{
+            const response = await fetch(`${api}/api/shorten`,{
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json'
