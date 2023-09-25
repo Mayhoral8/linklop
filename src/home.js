@@ -27,10 +27,11 @@ const Home = ()=>{
             const response = await fetch(`${api}/api/shorten`,{
                 method: 'POST',
                 headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    link
+                    link,
+                    host:api
                 })
             })
             const code = await QRCode.toDataURL(link)
